@@ -1,0 +1,709 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>ENGINE ZERO — Architecture Discovery v0.2</title>
+<style>
+:root{--bg:#071018;--pane:#111d29;--pane2:#142330;--border:#29404a;--ink:#ecf2f4;--muted:#91a9b3;--lime:#a3f0c3;--sky:#8fcefa;--gold:#edc892;--red:#ef969d;--violet:#c1adea;--shadow:0 16px 42px #0004}
+*{box-sizing:border-box}body{background:var(--bg);font:14px/1.55 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--ink);margin:0}body::before{content:'';position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle 680px at 62% -20%,#1d3a4270,transparent 80%)}.app{max-width:1570px;margin:auto;padding:0 28px 55px}button,select,input,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.4;cursor:wait}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
+nav{border-bottom:1px solid var(--border);height:72px;display:flex;justify-content:space-between;align-items:center}.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.16em}.mark{border:1.5px solid var(--lime);border-radius:9px;color:var(--lime);width:36px;height:36px;display:grid;place-items:center;font-size:20px}.mono,.ver,.tiny,.tag,.stats span{font:11px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace}.ver,.tiny{color:var(--muted)}.status{border:1px solid #3b6456;background:#122b27;color:var(--lime);padding:8px 12px;border-radius:30px;font:10px ui-monospace,monospace;letter-spacing:.1em}.status:before{content:'●';margin-right:8px}
+.hero{display:flex;justify-content:space-between;align-items:end;gap:20px;padding:40px 0 32px}.kicker{font:11px ui-monospace,monospace;color:var(--lime);letter-spacing:.15em;text-transform:uppercase}h1{font-size:clamp(29px,3.2vw,49px);letter-spacing:-.055em;line-height:1.12;font-weight:640;margin:11px 0 14px}h1 em{color:var(--lime);font-style:normal}.hero p{color:var(--muted);max-width:740px;margin:0;font-size:15px}.buildid{text-align:right;color:var(--muted);white-space:nowrap;font:11px/2 ui-monospace,monospace}
+.layout{display:grid;grid-template-columns:315px minmax(0,1fr);gap:18px;align-items:start}.panel{border:1px solid var(--border);background:linear-gradient(145deg,#162633,#0f1923 90%);border-radius:14px;box-shadow:var(--shadow)}.side{padding:25px}.section-label{color:var(--muted);font:10px ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase}.side h2{font-size:19px;margin:9px 0 24px;letter-spacing:-.015em}.field{display:block;margin-bottom:21px}.field .line{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px;font-size:13px}.field output{color:var(--lime);font:12px ui-monospace,monospace}select,input[type=number]{width:100%;border:1px solid #38505f;border-radius:8px;background:#0d1924;color:var(--ink);padding:11px}input[type=range]{accent-color:var(--lime);width:100%}.ends{display:flex;justify-content:space-between;color:var(--muted);font-size:10px}.segment{display:flex;gap:7px}.segment button{flex:1;min-width:0;background:#10202c;border:1px solid #38505f;color:var(--muted);padding:9px 4px;border-radius:8px;font:11px ui-monospace,monospace}.segment button.selected{color:#0b241b;background:var(--lime);border-color:var(--lime)}.primary{width:100%;border:none;background:var(--lime);padding:14px;border-radius:9px;color:#103125;font-weight:750}.primary:hover:not(:disabled){background:#ceffdd}.secondary{border:1px solid #38505f;background:#142632;color:var(--ink);padding:9px 12px;border-radius:8px;font-weight:650}.secondary:hover{background:#1e3544}.halfbuttons{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.meter{margin-top:15px;height:4px;background:#213540;border-radius:10px;overflow:hidden}.meter div{height:100%;width:0;background:var(--lime);transition:width .15s}.aside-note{font-size:11px;color:var(--muted);margin:14px 0 0}.aside-split{height:1px;background:var(--border);margin:21px 0}.keyvalue{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:var(--muted);padding:6px 0;border-bottom:1px solid #223440}.keyvalue b{color:var(--ink);font:12px ui-monospace,monospace}
+.content{display:flex;flex-direction:column;gap:16px;min-width:0}.statgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.stat{padding:16px 20px}.stat label{display:block;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px}.stat .value{font-size:26px;letter-spacing:-.045em;font-weight:710}.stat small{font-size:12px;color:var(--muted)}.green{color:var(--lime)}.canvashead{padding:17px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:10px}.canvashead strong{font-size:13px}.legend{display:flex;gap:15px;align-items:center;color:var(--muted);font:10px ui-monospace,monospace}.legend span:before{content:' ';width:8px;height:8px;display:inline-block;border-radius:50%;margin-right:7px;background:currentColor}.legend .target{color:var(--sky)}.legend .actual{color:var(--lime)}.legend .base{color:var(--gold)}#scene{display:block;width:100%;background:#0b1520;aspect-ratio:1000 / 475}#topologyScene{display:none;width:100%;background:#0b1520;aspect-ratio:1000 / 475}.canvasfoot{border-top:1px solid var(--border);display:flex;gap:12px;align-items:center;padding:14px 20px}.canvasfoot input{flex:1}.phase{font:11px ui-monospace,monospace;color:var(--muted);min-width:60px;text-align:right}.canvasactions{display:flex;gap:7px}.canvasactions button{min-width:68px}.active{background:#254338;color:var(--lime);border-color:#447a60}.resulthead{display:flex;justify-content:space-between;align-items:center;padding:19px 22px 9px}.resulthead strong{font-size:15px}.resulthead small{color:var(--muted)}.champions{padding:8px 17px 17px;display:grid;grid-template-columns:repeat(auto-fit,minmax(164px,1fr));gap:9px}.candidate{border:1px solid #334c5a;background:#122330;border-radius:10px;text-align:left;padding:12px 13px;color:var(--ink);min-height:90px}.candidate[aria-pressed=true]{border-color:var(--lime);box-shadow:inset 0 0 0 1px #a3f0c330;background:#1b3437}.candidate:hover{border-color:#719b93}.candidate .title{display:flex;justify-content:space-between;gap:4px;font-size:12px;font-weight:700}.candidate .score{color:var(--lime);font:21px ui-monospace,monospace;letter-spacing:-.03em;margin-top:9px}.candidate .caption{color:var(--muted);font:10px ui-monospace,monospace;margin-top:3px}.pill{color:var(--gold);font:10px ui-monospace,monospace}.overview{display:grid;grid-template-columns:1fr 1fr;gap:0}.overview>div{padding:21px 23px}.overview>div+div{border-left:1px solid var(--border)}.overview h3{margin:0 0 15px;font-size:14px}.overview p{font-size:12px;color:var(--muted);margin:0 0 9px}.joint-list{display:flex;flex-wrap:wrap;gap:6px}.joint-list span{border:1px solid #3a505d;background:#10232e;padding:6px 8px;font:10px ui-monospace,monospace;border-radius:6px;color:#bfd6da}.actionrow{display:flex;flex-wrap:wrap;gap:9px;margin-top:15px}.research{border:1px solid #34524f;background:#102325;border-radius:13px;padding:20px 23px;color:#b7d3ca;font-size:13px}.research strong{color:var(--lime)}.research a{color:var(--sky)}.editor{margin-top:18px;padding:18px 21px}.editor summary{cursor:pointer;font-size:13px;font-weight:650}.editor p{color:var(--muted);font-size:11px}.editor textarea{width:100%;min-height:240px;resize:vertical;background:#08141f;color:#d3e4e7;border:1px solid #38505f;border-radius:8px;padding:13px;font:11px/1.5 ui-monospace,monospace}.editor button{margin-top:11px}#feedback{color:var(--muted);font-size:11px;margin:10px 0 0;min-height:16px}.footer{color:var(--muted);font-size:11px;display:flex;justify-content:space-between;gap:15px;margin-top:28px}
+@media(max-width:1120px){.layout{grid-template-columns:285px minmax(0,1fr)}.statgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.buildid{display:none}.legend{flex-wrap:wrap}.canvashead{align-items:start;flex-direction:column}}
+@media(max-width:750px){.app{padding:0 13px 35px}.layout{grid-template-columns:1fr}.hero{padding:28px 0 25px}.hero h1{font-size:34px}.statgrid{gap:8px}.stat{padding:14px}.overview{grid-template-columns:1fr}.overview>div+div{border:0;border-top:1px solid var(--border)}.canvasfoot{padding:10px;flex-wrap:wrap}.phase{min-width:40px}.footer{display:block}}
+</style></head><body><div class="app">
+<nav><div class="brand"><span class="mark">E</span>ENGINE ZERO <span class="ver">LAB / 0.2</span></div><span class="status">GRAPH ENGINE ONLINE</span></nav>
+<section class="hero"><div><div class="kicker">Research experiment / 002 — Architecture exploration</div><h1>Don't choose a mechanism.<br/><em>Discover its architecture.</em></h1><p>A constraint-based generator that changes the actual connectivity of machines. Search rotary, sliding, six-bar, and eight-bar linkages with one shared solver and compare their output motion.</p></div><div class="buildid">MODE / TWO-DIMENSIONAL<br/>DRIVE / ONE ROTARY INPUT<br/>VALIDATION / IDEAL KINEMATICS</div></section>
+<div class="layout">
+<aside class="panel side"><div class="section-label">01 / Engineering brief</div><h2>Define the output motion</h2>
+<label class="field"><span class="line">Desired path</span><select id="mode"><option value="step">Walking foot · stance and lift</option><option value="quick">Quick-return stroke</option><option value="oval">Oval trajectory</option></select></label>
+<label class="field"><span class="line">Horizontal travel <output id="strokeVal">120 mm</output></span><input id="stroke" type="range" min="50" max="180" step="5" value="120"/><span class="ends"><span>50 mm</span><span>180 mm</span></span></label>
+<label class="field"><span class="line">Vertical travel <output id="liftVal">38 mm</output></span><input id="lift" type="range" min="15" max="85" value="38"/><span class="ends"><span>15 mm</span><span>85 mm</span></span></label>
+<div class="field"><span class="line">Maximum architecture complexity</span><div class="segment" role="group" aria-label="Maximum links"><button data-depth="0">4 links</button><button data-depth="1">6 links</button><button class="selected" data-depth="2">8 links</button></div></div>
+<label class="field"><span class="line">Search seed</span><input id="seed" type="number" min="0" max="4294967295" step="1" value="20261115"/></label>
+<button id="search" class="primary">Discover 200 candidates</button><div class="halfbuttons"><button id="more" class="secondary">+500 designs</button><button id="reset" class="secondary">Reset experiment</button></div><div class="meter"><div id="progress"></div></div><p id="searchstatus" class="aside-note" aria-live="polite">Ready. Search creates and mutates body-joint graphs, then validates entire input cycles.</p>
+<div class="aside-split"></div><div class="section-label">02 / Test limits</div><div class="keyvalue"><span>Planar bodies</span><b>Rigid</b></div><div class="keyvalue"><span>Joint constraints</span><b>R / P</b></div><div class="keyvalue"><span>Generalized mobility</span><b>1 input</b></div><div class="keyvalue"><span>Load / stress</span><b>Not modeled</b></div><div class="keyvalue"><span>Collisions</span><b>Not checked</b></div><div class="keyvalue"><span>Physical novelty</span><b>Not tested</b></div><p class="aside-note">Graphs are candidates for further mechanical engineering analysis, not validated hardware or patentable inventions.</p>
+</aside>
+<main class="content"><div class="statgrid"><div class="panel stat"><label>Selected path RMSE</label><div class="value green" id="bestError">—</div><small>mm · selected candidate</small></div><div class="panel stat"><label>Best-fit crank</label><div class="value" id="baseline">—</div><small>mm · fixed comparison</small></div><div class="panel stat"><label>Evaluated designs</label><div class="value" id="evaluated">1</div><small id="successLabel">feasible cycle: 1</small></div><div class="panel stat"><label>Families discovered</label><div class="value" id="families">1</div><small>distinct topology categories</small></div></div>
+<section class="panel"><div class="canvashead"><strong id="canvasTitle">Motion study — four-bar incumbent</strong><div class="legend"><span class="target">Desired</span><span class="actual">Generated</span><span class="base">Simple crank</span></div></div>
+<svg id="scene" viewBox="0 0 1000 475" role="img" aria-label="Animated planar mechanism and trajectories"></svg><svg id="topologyScene" viewBox="0 0 1000 475" role="img" aria-label="Body-joint connectivity graph"></svg>
+<div class="canvasfoot"><div class="canvasactions"><button class="secondary active" id="motionTab">Motion</button><button class="secondary" id="topologyTab">Topology</button></div><button class="secondary" id="play">Pause</button><input id="phase" type="range" min="0" max="359" step="1" value="0" aria-label="Rotation angle in degrees"/><span id="phaseLabel" class="phase">0°</span></div></section>
+<section class="panel"><div class="resulthead"><strong>Architecture champions</strong><small>Click a family to inspect its strongest candidate</small></div><div id="champions" class="champions"></div></section>
+<section class="panel overview"><div><h3>Graph-level engineering checks</h3><div id="checks"></div><div class="actionrow"><button class="secondary" id="exportJSON">Export graph JSON</button><button class="secondary" id="exportSVG">Export SVG</button><button class="secondary" id="exportCSV">Export rankings CSV</button></div></div><div><h3>Body-joint network</h3><p>Each candidate is a body/joint graph, not a named linkage selected from a menu. Adding an R–R–R dyad introduces two bodies and three revolute constraints while preserving the original mobility count.</p><div id="joints" class="joint-list"></div></div></section>
+</main></div>
+<details class="panel editor" id="editPanel"><summary>Advanced research: inspect / edit the candidate graph</summary><p>Exports include body IDs, local joint anchors, actuator, output point, and reproducible base / dyad parameters. Modify JSON and select Test imported graph; you may provide custom <code>seedPoses</code> for graphs without an available analytic initialization. The mobility count is necessary, not sufficient, for physical motion.</p><textarea id="graphJSON" spellcheck="false" aria-label="Graph JSON editor"></textarea><button id="import" class="secondary">Test imported graph</button><p id="feedback" aria-live="polite"></p></details>
+<div class="research"><strong>What counts as progress here?</strong> The engine can now change the number of links, the joint types (rotary and sliding), the placement of attachment points, and the connectivity of additional dyads; a common constraint solver tests the resulting motion. It <strong>does not</strong> autonomously invent physics, prove novelty, perform collision/force analysis, or output fabrication-safe geometry. Cross-topology invention research is established prior art, and our next milestone is benchmarked physics and manufacturing constraints.</div>
+<footer class="footer"><span>ENGINE ZERO / OPEN RESEARCH · v0.2 · 15 November 2026</span><span>Runs offline · Deterministic seeds · No services or API keys</span></footer></div>
+<script>
+/* ENGINE ZERO / MOTION SYNTHESIS: deterministic planar linkage synthesis experiment.
+ * No physics engine, no structural FEA, no patent novelty determination.
+ * MIT License, experimental educational research software.
+ */
+(function(root, factory){
+  if (typeof module === 'object' && module.exports) module.exports = factory();
+  else root.EngineZero = factory();
+})(typeof globalThis !== 'undefined' ? globalThis : this, function(){
+  'use strict';
+  const TAU = Math.PI * 2;
+  const BOUNDS = [
+    [75, 160],  // d: ground separation (mm)
+    [15, 68],   // a: crank length
+    [45, 180],  // b: coupler length
+    [50, 170],  // c: rocker length
+    [-35, 205], // p: coupler point along BC
+    [-110, 110],// q: coupler point normal to BC
+    [-Math.PI, Math.PI], // whole mechanism rotation
+    [0, TAU]    // crank starting phase
+  ];
+  function random(seed){ let x = seed >>> 0; return function(){ x += 0x6D2B79F5; let t=x; t=Math.imul(t^(t>>>15), t|1); t^=t+Math.imul(t^(t>>>7),t|61); return ((t^(t>>>14))>>>0)/4294967296; }; }
+  function meanPts(points){let x=0,y=0;for(const p of points){x+=p.x;y+=p.y;}return {x:x/points.length,y:y/points.length};}
+  function standardOptions(opts={}) {return {mode:opts.mode||'step',stroke:Number(opts.stroke)||120,lift:Number(opts.lift)||38,n:opts.n||48};}
+  function targetPath(options={}){
+    const {mode,stroke,lift,n}=standardOptions(options), pts=[];
+    for(let i=0;i<n;i++){
+      const t=i/n, stance = mode==='quick'?0.62:0.50;
+      let x,y;
+      if(mode==='oval'){
+        x=stroke/2*Math.cos(TAU*t); y=lift/2*Math.sin(TAU*t);
+      } else if(t<stance){
+        x=stroke/2-stroke*t/stance; y=0;
+      } else {
+        const u=(t-stance)/(1-stance);
+        x=-stroke/2+stroke*u; y=lift*Math.sin(Math.PI*u);
+      }
+      pts.push({x,y});
+    }
+    return pts;
+  }
+  function geometryValid(v){
+    if(!v || v.length!==8 || !v.every(Number.isFinite))return false;
+    const [d,a,b,c]=v; if(a>=d || a>=b || a>=c) return false;
+    const lengths=[d,a,b,c].sort((u,v)=>u-v);
+    // Require useful Grashof margin to support a fully rotating input crank.
+    return lengths[0]+lengths[3]+3<=lengths[1]+lengths[2] && d-a>Math.abs(b-c)+3 && b+c>d+a+3;
+  }
+  function pointAt(v,theta,branch=1){
+    const [d,a,b,c,p,q,rot]=v;
+    const Bx=a*Math.cos(theta),By=a*Math.sin(theta),Dx=d-Bx,Dy=-By;
+    const e=Math.hypot(Dx,Dy);
+    if(e<=1e-8 || e>b+c+1e-7 || e<Math.abs(b-c)-1e-7)return null;
+    const along=(b*b-c*c+e*e)/(2*e);
+    let h2=b*b-along*along;
+    if(h2 < -1e-6)return null;
+    h2=Math.max(0,h2);const h=Math.sqrt(h2);
+    const ux=Dx/e,uy=Dy/e;
+    const Cx=Bx+along*ux-branch*h*uy,Cy=By+along*uy+branch*h*ux;
+    const vx=(Cx-Bx)/b,vy=(Cy-By)/b;
+    const Px=Bx+p*vx-q*vy,Py=By+p*vy+q*vx;
+    const cos=Math.cos(rot),sin=Math.sin(rot);
+    function transform(x,y){return {x: x*cos-y*sin,y:x*sin+y*cos};}
+    return {A:transform(0,0),B:transform(Bx,By),C:transform(Cx,Cy),D:transform(d,0),P:transform(Px,Py),height:h};
+  }
+  function trace(v, n=48){
+    if(!geometryValid(v))return null;
+    const points=[],states=[];let minHeight=Infinity;
+    for(let i=0;i<n;i++){
+      const at=pointAt(v,TAU*i/n+v[7]);
+      if(!at)return null;
+      points.push(at.P);states.push(at);
+      minHeight=Math.min(minHeight,at.height);
+    }
+    return {points,states,minHeight};
+  }
+  function align(points,target){
+    const m1=meanPts(points),m2=meanPts(target);
+    const dx=m2.x-m1.x,dy=m2.y-m1.y;
+    return {points:points.map(pt=>({x:pt.x+dx,y:pt.y+dy})),offset:{x:dx,y:dy}};
+  }
+  function rootMeanSquare(points,target){
+    let ss=0;
+    for(let i=0;i<points.length;i++){const dx=points[i].x-target[i].x,dy=points[i].y-target[i].y;ss+=dx*dx+dy*dy;}
+    return Math.sqrt(ss/points.length);
+  }
+  function assess(v,target){
+    const t=trace(v,target.length);
+    if(!t)return {score:1e9,rms:1e9};
+    const aligned=align(t.points,target);
+    const rms=rootMeanSquare(aligned.points,target);
+    // Discourage near-toggle geometry, not a rigorous dynamic load constraint.
+    const penalty=Math.max(0,4-t.minHeight)*2;
+    return {score:rms+penalty,rms,minHeight:t.minHeight,points:aligned.points,offset:aligned.offset,states:t.states};
+  }
+  function crankBaseline(target){
+    const centered=meanPts(target),n=target.length;
+    let best=null;
+    for(const direction of [1,-1]){
+      let cr=0,ci=0;
+      for(let i=0;i<n;i++){
+        const x=target[i].x-centered.x,y=target[i].y-centered.y;
+        const theta=direction*TAU*i/n;
+        cr+=(x*Math.cos(theta)+y*Math.sin(theta))/n;
+        ci+=(y*Math.cos(theta)-x*Math.sin(theta))/n;
+      }
+      const pts=[];let sum=0;
+      for(let i=0;i<n;i++){
+        const theta=direction*TAU*i/n;
+        const x=cr*Math.cos(theta)-ci*Math.sin(theta)+centered.x;
+        const y=cr*Math.sin(theta)+ci*Math.cos(theta)+centered.y;
+        pts.push({x,y});
+        sum+=(x-target[i].x)**2+(y-target[i].y)**2;
+      }
+      const candidate={points:pts,rms:Math.sqrt(sum/n),radius:Math.hypot(cr,ci)};
+      if(!best||candidate.rms<best.rms)best=candidate;
+    }
+    return best;
+  }
+  function drawRandom(rng){return BOUNDS.map(([lo,hi])=>lo+(hi-lo)*rng());}
+  function normalize(v,i){
+    const [lo,hi]=BOUNDS[i];
+    if(i===6||i===7){const size=hi-lo;return lo+(((v-lo)%size)+size)%size;}
+    return Math.min(hi,Math.max(lo,v));
+  }
+  function createSearch(target,options={}){
+    const rng=random(options.seed===undefined?20261115:options.seed);
+    const size=options.population||72;
+    const pop=[];
+    if (options.seedVector && geometryValid(options.seedVector)) {
+      const v=options.seedVector.slice();pop.push({v,assessment:assess(v,target)});
+    }
+    for(let tries=0;pop.length<size&&tries<100000;tries++){
+      const v=drawRandom(rng);
+      if(geometryValid(v))pop.push({v,assessment:assess(v,target)});
+    }
+    if(pop.length<size)throw new Error('Could not initialize linkage candidate population.');
+    pop.sort((a,b)=>a.assessment.score-b.assessment.score);
+    let gen=0, evalCount=pop.length;
+    return {
+      get best(){return pop.reduce((a,b)=>a.assessment.score<=b.assessment.score?a:b);},
+      get generation(){return gen;},get evaluations(){return evalCount;},
+      advance(generations=1){
+        for(let j=0;j<generations;j++){
+          const F=0.45+rng()*0.35,CR=0.72;
+          for(let i=0;i<pop.length;i++){
+            let a,b,c;
+            do{a=Math.floor(rng()*pop.length);}while(a===i);
+            do{b=Math.floor(rng()*pop.length);}while(b===i||b===a);
+            do{c=Math.floor(rng()*pop.length);}while(c===i||c===a||c===b);
+            const donor=pop[a].v.map((z,k)=>{
+              let delta=pop[b].v[k]-pop[c].v[k];
+              if(k>=6){const range=BOUNDS[k][1]-BOUNDS[k][0];delta=((delta+range/2)%range+range)%range-range/2;}
+              return normalize(z+F*delta,k);
+            });
+            const forced=Math.floor(rng()*8),trial=pop[i].v.map((z,k)=>(rng()<CR||k===forced)?donor[k]:z);
+            if(!geometryValid(trial))continue;
+            const assessment=assess(trial,target);evalCount++;
+            if(assessment.score<pop[i].assessment.score)pop[i]={v:trial,assessment};
+          }
+          gen++;
+        }
+        return this.best;
+      }
+    };
+  }
+  function runSearch(target, options={}){
+    const search=createSearch(target,options);
+    search.advance(options.generations||200);
+    return {vector:search.best.v,assessment:search.best.assessment,generations:search.generation,evaluations:search.evaluations};
+  }
+  return {TAU,BOUNDS,targetPath,geometryValid,pointAt,trace,align,assess,crankBaseline,createSearch,runSearch,random};
+});
+
+</script><script>
+/* ENGINE ZERO v0.2 — graph-based planar mechanism engine.
+ * Ideal kinematics only. Geometry and graph grammar are not evidence of invention novelty.
+ * CommonJS + browser global. No dependencies.
+ */
+(function(root,factory){
+  if(typeof module==='object' && module.exports)module.exports=factory();
+  else root.EZGraph=factory();
+})(typeof globalThis!=='undefined'?globalThis:this,function(){
+'use strict';
+const TAU=Math.PI*2, EPS=1e-9;
+const v=(x,y)=>[x,y], add=(a,b)=>[a[0]+b[0],a[1]+b[1]], sub=(a,b)=>[a[0]-b[0],a[1]-b[1]], len=(a)=>Math.hypot(a[0],a[1]);
+const rot=(p,t)=>[p[0]*Math.cos(t)-p[1]*Math.sin(t),p[0]*Math.sin(t)+p[1]*Math.cos(t)];
+const cross=(a,b)=>a[0]*b[1]-a[1]*b[0];
+const wrap=(t)=>Math.atan2(Math.sin(t),Math.cos(t));
+const bodyPose=(poses,id)=>id==='g'?[0,0,0]:poses[id];
+const world=(poses,id,pt)=>{const [x,y,t]=bodyPose(poses,id);return add([x,y],rot(pt,t));};
+const arm=(poses,id,p)=>rot([-p[1],p[0]],bodyPose(poses,id)[2]);
+function rng(seed){let n=seed>>>0;return ()=>{n+=0x6D2B79F5;let t=n;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return ((t^(t>>>14))>>>0)/4294967296;};}
+function choose(rand,items){return items[Math.floor(rand()*items.length)];}
+function clone(x){return JSON.parse(JSON.stringify(x));}
+function validate(g){
+  if(!g||!Array.isArray(g.bodies)||!Array.isArray(g.joints)||!g.driver||!g.output)throw Error('Invalid graph structure');
+  const ids=g.bodies.map(b=>b.id),known=new Set(ids);
+  if(new Set(ids).size!==ids.length||!known.has('g'))throw Error('Bodies must have unique IDs and ground body g');
+  if(!known.has(g.driver.body)||g.driver.body==='g'||!known.has(g.output.body))throw Error('Unknown driver/output body');
+  for(const j of g.joints){if(!known.has(j.a)||!known.has(j.b)||j.a===j.b||!['R','P'].includes(j.type))throw Error('Invalid joint '+j.id);
+    if(!Array.isArray(j.pa)||!Array.isArray(j.pb)||![...j.pa,...j.pb].every(Number.isFinite))throw Error('Invalid joint anchors');}
+  const mobility=3*(ids.length-1)-2*g.joints.length-1;
+  if(mobility!==0)throw Error('Generic one-driver mobility count is '+mobility+' instead of 0');
+  return true;
+}
+function equationSystem(g,poses,inputAngle,derivatives){
+  const vars=g.bodies.filter(b=>b.id!=='g').map(b=>b.id);
+  const cols=vars.length*3,index={}; vars.forEach((id,k)=>index[id]=3*k);
+  const residual=[], jac=[];
+  const row=(r,parts)=>{residual.push(r);if(derivatives){const out=Array(cols).fill(0);for(const [id,dx,dy,dt] of parts){if(id!=='g'){const k=index[id];out[k]+=dx;out[k+1]+=dy;out[k+2]+=dt;}}jac.push(out);}};
+  for(const j of g.joints){
+    const pa=world(poses,j.a,j.pa),pb=world(poses,j.b,j.pb),da=arm(poses,j.a,j.pa),db=arm(poses,j.b,j.pb);
+    if(j.type==='R'){
+      row(pa[0]-pb[0],[[j.a,1,0,da[0]],[j.b,-1,0,-db[0]]]);
+      row(pa[1]-pb[1],[[j.a,0,1,da[1]],[j.b,0,-1,-db[1]]]);
+    }else{
+      const ta=bodyPose(poses,j.a)[2],tb=bodyPose(poses,j.b)[2];
+      const axis=rot([1,0],ta+(j.axisA||0)),daxis=[-axis[1],axis[0]],delta=sub(pb,pa);
+      const dpa=cross(daxis,delta)-cross(axis,da),dpb=cross(axis,db);
+      row(cross(axis,delta),[[j.a,axis[1],-axis[0],dpa],[j.b,-axis[1],axis[0],dpb]]);
+      const factor=40;
+      row(factor*wrap(tb+(j.axisB||0)-ta-(j.axisA||0)),[[j.a,0,0,-factor],[j.b,0,0,factor]]);
+    }
+  }
+  const factor=40;
+  row(factor*wrap(bodyPose(poses,g.driver.body)[2]-inputAngle*(g.driver.speed??1)-g.driver.offset),[[g.driver.body,0,0,factor]]);
+  return {residual,jac,cols,vars};
+}
+function maxAbs(ar){return ar.reduce((m,x)=>Math.max(m,Math.abs(x)),0);}
+function solveLinear(A,b){
+  const n=b.length,M=A.map((r,i)=>[...r,b[i]]);
+  for(let k=0;k<n;k++){
+    let pivot=k;for(let i=k+1;i<n;i++)if(Math.abs(M[i][k])>Math.abs(M[pivot][k]))pivot=i;
+    if(Math.abs(M[pivot][k])<1e-12)return null;
+    [M[pivot],M[k]]=[M[k],M[pivot]];
+    for(let i=k+1;i<n;i++){
+      const s=M[i][k]/M[k][k];M[i][k]=0;
+      for(let j=k+1;j<=n;j++)M[i][j]-=s*M[k][j];
+    }
+  }
+  const x=Array(n).fill(0);
+  for(let i=n-1;i>=0;i--){let sum=M[i][n];for(let j=i+1;j<n;j++)sum-=M[i][j]*x[j];x[i]=sum/M[i][i];}
+  return x;
+}
+function dampedLeastSquares(jac,residual,lambda){
+  const n=jac[0].length,A=Array.from({length:n},()=>Array(n).fill(0)),b=Array(n).fill(0);
+  for(let r=0;r<jac.length;r++){
+    for(let i=0;i<n;i++){
+      b[i]-=jac[r][i]*residual[r];
+      for(let j=0;j<=i;j++)A[i][j]+=jac[r][i]*jac[r][j];
+    }
+  }
+  for(let i=0;i<n;i++){for(let j=0;j<i;j++)A[j][i]=A[i][j];A[i][i]+=lambda;}
+  return solveLinear(A,b);
+}
+function clonePoses(poses){const out={};for(const [id,p] of Object.entries(poses))out[id]=p.slice();return out;}
+function solve(g,angle,initial,opts={}){
+  const tol=opts.tolerance??1e-5,maxIter=opts.maxIter??18;
+  let poses=clonePoses(initial||{});
+  for(const b of g.bodies)if(b.id!=='g'&&!poses[b.id])return {ok:false,error:'Missing initial body pose: '+b.id};
+  let best=Infinity,iteration=0;
+  for(;iteration<=maxIter;iteration++){
+    const sys=equationSystem(g,poses,angle,true),r=sys.residual;
+    const error=maxAbs(r);
+    if(!Number.isFinite(error))return {ok:false,error:'Non-finite residual'};
+    best=error;
+    if(error<tol)return {ok:true,poses,maxResidual:error,iterations:iteration};
+    if(iteration===maxIter)break;
+    let stepped=false;
+    for(const lambda of [1e-7,1e-4,1e-2,0.1,1]){
+      const delta=dampedLeastSquares(sys.jac,r,lambda);
+      if(!delta||!delta.every(Number.isFinite))continue;
+      const currentSse=r.reduce((s,q)=>s+q*q,0);
+      for(const alpha of [1,0.5,0.25,0.125,0.0625]){
+        const guess=clonePoses(poses);
+        for(let i=0;i<sys.vars.length;i++){
+          const p=guess[sys.vars[i]],k=i*3;
+          p[0]+=alpha*delta[k];p[1]+=alpha*delta[k+1];p[2]+=alpha*delta[k+2];
+        }
+        const rr=equationSystem(g,guess,angle,false).residual;
+        if(rr.reduce((s,q)=>s+q*q,0)<currentSse*(1-1e-9)){
+          poses=guess;stepped=true;break;
+        }
+      }
+      if(stepped)break;
+    }
+    if(!stepped)break;
+  }
+  return {ok:false,poses,maxResidual:best,error:'Solver failed to close constraints ('+best.toFixed(3)+' mm-equivalent)'};
+}
+function intersection(A,r1,B,r2,branch=1){
+  const d=len(sub(B,A));if(d<EPS||d>r1+r2-EPS||d<Math.abs(r1-r2)+EPS)return null;
+  const along=(r1*r1-r2*r2+d*d)/(2*d),h2=r1*r1-along*along;
+  if(h2<0)return null;
+  const u=[(B[0]-A[0])/d,(B[1]-A[1])/d],h=Math.sqrt(h2);
+  return add(add(A,[along*u[0],along*u[1]]),[branch*(-u[1])*h,branch*u[0]*h]);
+}
+function fromLegacyFourbar(vec){
+  const [d,a,b,c,p,q,rotation,phase]=vec;
+  const graph={version:'0.2',family:'4R',label:'Four-bar graph',bodies:[{id:'g',length:d},{id:'input',length:a},{id:'coupler',length:b},{id:'rocker',length:c}],joints:[
+    {id:'A',type:'R',a:'g',b:'input',pa:[0,0],pb:[0,0]},
+    {id:'B',type:'R',a:'input',b:'coupler',pa:[a,0],pb:[0,0]},
+    {id:'C',type:'R',a:'coupler',b:'rocker',pa:[b,0],pb:[c,0]},
+    {id:'D',type:'R',a:'rocker',b:'g',pa:[0,0],pb:rot([d,0],rotation)}
+  ],driver:{body:'input',offset:phase+rotation},output:{body:'coupler',point:[p,q]},meta:{base:'4R',parameters:vec.slice()},dyads:[]};
+  graph.joints[0].pa=[0,0];
+  graph.initial=(angle)=>{
+    const phi=angle+phase;
+    const B=[a*Math.cos(phi),a*Math.sin(phi)],D=[d,0];
+    const C=intersection(B,b,D,c,1);if(!C)return null;
+    const coords={input:[0,0,phi],coupler:[B[0],B[1],Math.atan2(C[1]-B[1],C[0]-B[0])],rocker:[d,0,Math.atan2(C[1],C[0]-d)]};
+    for(const pose of Object.values(coords)){const xy=rot(pose.slice(0,2),rotation);pose[0]=xy[0];pose[1]=xy[1];pose[2]+=rotation;}
+    return coords;
+  };
+  return graph;
+}
+function sliderCrank(params){
+  const {crank:a,rod:l,offset:h,point:p,normal:q,rotation:r,phase:ph}=params;
+  if(l<=a+Math.abs(h)+4)throw Error('Slider rod must exceed crank + offset + margin');
+  const graph={version:'0.2',family:'3R1P',label:'Slider-crank graph',bodies:[{id:'g',length:150},{id:'input',length:a},{id:'rod',length:l},{id:'slider',length:8}],joints:[
+    {id:'A',type:'R',a:'g',b:'input',pa:rot([0,h],r),pb:[0,0]},
+    {id:'B',type:'R',a:'input',b:'rod',pa:[a,0],pb:[0,0]},
+    {id:'C',type:'R',a:'rod',b:'slider',pa:[l,0],pb:[0,0]},
+    {id:'rail',type:'P',a:'g',b:'slider',pa:[0,0],pb:[0,0],axisA:r,axisB:0}
+  ],driver:{body:'input',offset:r+ph},output:{body:'rod',point:[p,q]},meta:{base:'3R1P',parameters:params},dyads:[]};
+  graph.initial=(angle)=>{
+    const t=angle+ph,B=[a*Math.cos(t),h+a*Math.sin(t)],Cx=B[0]+Math.sqrt(l*l-B[1]*B[1]),C=[Cx,0];
+    const poses={input:[0,h,t],rod:[B[0],B[1],Math.atan2(-B[1],Cx-B[0])],slider:[Cx,0,0]};
+    for(const pose of Object.values(poses)){const xy=rot(pose.slice(0,2),r);pose[0]=xy[0];pose[1]=xy[1];pose[2]+=r;}
+    return poses;
+  };
+  return graph;
+}
+function randomSlider(rand){const a=20+rand()*46,h=(rand()-.5)*30,l=a+Math.abs(h)+30+rand()*90;
+  return sliderCrank({crank:a,rod:l,offset:h,point:(rand()*.8+.1)*l,normal:(rand()-.5)*100,rotation:(rand()-.5)*TAU,phase:rand()*TAU});}
+function randomFourbar(rand,legacy){
+  for(let i=0;i<400;i++){
+    const d=70+rand()*110,a=16+rand()*45,b=55+rand()*125,c=45+rand()*115;
+    const vals=[d,a,b,c,(rand()-.15)*b,(rand()-.5)*120,(rand()-.5)*TAU,rand()*TAU];
+    if(legacy.geometryValid(vals))return fromLegacyFourbar(vals);
+  }
+  throw Error('Failed to find valid four-bar');
+}
+function motion(g,steps=48,options={}){
+  validate(g);
+  const points=[],frames=[];
+  let old=g.initial?g.initial(0):g.seedPoses;
+  if(!old)return {ok:false,reason:'Graph lacks seed poses'};
+  let worst=0,totalIterations=0,largestPassiveAngularStep=0;
+  for(let k=0;k<steps;k++){
+    const theta=TAU*k/steps;
+    // Continue from the prior solution, rather than invoking a family-specific trajectory formula.
+    let sol=solve(g,theta,old,options);
+    if(!sol.ok){
+      // Single recovery attempt from the analytic initial assembly, when available.
+      const fresh=g.initial?g.initial(theta):null;
+      if(fresh)sol=solve(g,theta,fresh,options);
+    }
+    if(!sol.ok)return {ok:false,reason:`Frame ${k}: ${sol.error}`,frame:k};
+    if(k>0){
+      for(const body of g.bodies){if(body.id==='g'||body.id===g.driver.body)continue;
+        const change=Math.abs(wrap(sol.poses[body.id][2]-old[body.id][2]));
+        largestPassiveAngularStep=Math.max(largestPassiveAngularStep,change);
+        if(change>1.7)return {ok:false,reason:`Assembly branch discontinuity at frame ${k} on ${body.id}`,frame:k};
+      }
+    }
+    totalIterations+=sol.iterations;worst=Math.max(worst,sol.maxResidual);
+    const end=world(sol.poses,g.output.body,g.output.point);
+    points.push({x:end[0],y:end[1]});frames.push(sol.poses);
+    old=sol.poses;
+  }
+  // Extra closure test, including the final interval back to the first configuration.
+  const endSolution=solve(g,TAU,old,options);
+  if(!endSolution.ok)return {ok:false,reason:'Cycle closure solve failed'};
+  const out0=points[0],out1=world(endSolution.poses,g.output.body,g.output.point);
+  const closeErr=len(sub([out0.x,out0.y],out1));
+  if(closeErr>0.5)return {ok:false,reason:'Cycle did not return to original assembly (jump '+closeErr.toFixed(2)+' mm)'};
+  return {ok:true,points,frames,worstResidual:worst,cycleError:closeErr,iterations:totalIterations,largestPassiveAngularStep};
+}
+function score(g,trace,target){
+  if(!trace.ok)return {score:Infinity,rms:Infinity};
+  const m=(a)=>a.reduce((s,p)=>[s[0]+p.x/a.length,s[1]+p.y/a.length],[0,0]);
+  const a=m(trace.points),b=m(target),offset={x:b[0]-a[0],y:b[1]-a[1]};
+  const aligned=trace.points.map(p=>({x:p.x+offset.x,y:p.y+offset.y}));
+  const rms=Math.sqrt(aligned.reduce((s,p,i)=>s+(p.x-target[i].x)**2+(p.y-target[i].y)**2,0)/target.length);
+  const moving=g.bodies.length-1;
+  const complexityPenalty=Math.max(0,moving-3)*0.4;
+  return {score:rms+complexityPenalty,rms,complexityPenalty,offset,aligned};
+}
+function attachDyad(base,rand,options={}){
+  const g=clone(base);g.dyads=clone(base.dyads||[]);
+  const ids=g.bodies.map(b=>b.id),choices=ids.filter(x=>x!=='g');
+  let idA=options.a||choose(rand,ids),idB=options.b||choose(rand,ids);
+  if(idA===idB)idB=choose(rand,ids.filter(x=>x!==idA));
+  const anchor=(id)=>{const b=g.bodies.find(q=>q.id===id);if(id==='g')return [(rand()-.15)*(b.length||100),(rand()-.5)*36];
+    return [(rand()*.95+.025)*(b.length||20),(rand()-.5)*20];};
+  const pA=anchor(idA),pB=anchor(idB);
+  const oldMotion=motion(base,20);
+  if(!oldMotion.ok)return null;
+  let minDist=Infinity,maxDist=0;
+  for(const poses of oldMotion.frames){const d=len(sub(world(poses,idA,pA),world(poses,idB,pB)));minDist=Math.min(minDist,d);maxDist=Math.max(maxDist,d);}
+  if(minDist<8||maxDist>400)return null;
+  const middle=Math.max(22,maxDist*.66+16),skew=Math.min(minDist*.17,7)*(rand()-.5);
+  const l1=middle+skew,l2=middle-skew;
+  const k=g.dyads.length+1,uid='dyad'+k+'a',vid='dyad'+k+'b';
+  g.bodies.push({id:uid,length:l1},{id:vid,length:l2});
+  g.joints.push({id:'dyad'+k+'pinA',type:'R',a:idA,b:uid,pa:pA,pb:[0,0]},
+    {id:'dyad'+k+'knuckle',type:'R',a:uid,b:vid,pa:[l1,0],pb:[l2,0]},
+    {id:'dyad'+k+'pinB',type:'R',a:vid,b:idB,pa:[0,0],pb:pB});
+  const descriptor={idA,idB,pA,pB,l1,l2,uid,vid,branch:rand()>.5?1:-1};
+  g.dyads.push(descriptor);
+  // End effector shifts onto a newly created body, rather than merely adding a cosmetic link.
+  const selected=rand()>.4?uid:vid,chosenL=selected===uid?l1:l2;
+  g.output={body:selected,point:[(.2+.65*rand())*chosenL,(rand()-.5)*100]};
+  g.family=(g.dyads.length===1?'6-body':'8-body')+(base.family==='3R1P'?'+P':'');
+  g.label=g.dyads.length+' generated dyad'+(g.dyads.length===1?'':'s')+' on '+base.meta.base;
+  // Recreate seed poses from recursively appended dyad geometry. A generic solver verifies all joints.
+  const priorInitial=base.initial;
+  g.initial=(angle)=>{
+    const poses=priorInitial?priorInitial(angle):clonePoses(base.seedPoses||{});
+    if(!poses)return null;
+    for(const d of g.dyads){
+      const A=world(poses,d.idA,d.pA),B=world(poses,d.idB,d.pB),X=intersection(A,d.l1,B,d.l2,d.branch);
+      if(!X)return null;
+      const a=Math.atan2(X[1]-A[1],X[0]-A[0]),b=Math.atan2(X[1]-B[1],X[0]-B[0]);
+      poses[d.uid]=[A[0],A[1],a];poses[d.vid]=[B[0],B[1],b];
+    }
+    return poses;
+  };
+  try{validate(g);const trial=motion(g,20);if(!trial.ok)return null;}catch(e){return null;}
+  return g;
+}
+function stripGraph(g){const copy=clone(g);delete copy.initial;return copy;}
+function restoreGraph(g){
+  // Restores seed functions for exported grammar-generated graphs.
+  if(g.meta.base==='4R'){
+    let fresh=fromLegacyFourbar(g.meta.parameters);
+    if(!g.dyads||!g.dyads.length){fresh.output=g.output;return fresh;}
+    const descs=g.dyads.slice();
+    for(const d of descs){
+      const g0=fresh,newG=clone(g0);newG.bodies.push({id:d.uid,length:d.l1},{id:d.vid,length:d.l2});
+      newG.joints.push({id:d.uid+'a',type:'R',a:d.idA,b:d.uid,pa:d.pA,pb:[0,0]},
+        {id:d.uid+'x',type:'R',a:d.uid,b:d.vid,pa:[d.l1,0],pb:[d.l2,0]},
+        {id:d.uid+'b',type:'R',a:d.vid,b:d.idB,pa:[0,0],pb:d.pB});
+      newG.dyads=[...(fresh.dyads||[]),d];
+      const priorInitial=g0.initial;
+      newG.initial=(angle)=>{const poses=priorInitial(angle);if(!poses)return null;const A=world(poses,d.idA,d.pA),B=world(poses,d.idB,d.pB),X=intersection(A,d.l1,B,d.l2,d.branch);if(!X)return null;
+        poses[d.uid]=[...A,Math.atan2(X[1]-A[1],X[0]-A[0])];poses[d.vid]=[...B,Math.atan2(X[1]-B[1],X[0]-B[0])];return poses;};
+      fresh=newG;
+    }
+    fresh.output=g.output;fresh.label=g.label;fresh.family=g.family;return fresh;
+  }
+  if(g.meta.base==='3R1P'){
+    let fresh=sliderCrank(g.meta.parameters);
+    if(!g.dyads||!g.dyads.length){fresh.output=g.output;return fresh;}
+    const descs=g.dyads.slice();
+    for(const d of descs){const g0=fresh,newG=clone(g0);newG.bodies.push({id:d.uid,length:d.l1},{id:d.vid,length:d.l2});
+      newG.joints.push({id:d.uid+'a',type:'R',a:d.idA,b:d.uid,pa:d.pA,pb:[0,0]},
+        {id:d.uid+'x',type:'R',a:d.uid,b:d.vid,pa:[d.l1,0],pb:[d.l2,0]},
+        {id:d.uid+'b',type:'R',a:d.vid,b:d.idB,pa:[0,0],pb:d.pB});newG.dyads=[...(fresh.dyads||[]),d];
+      const priorInitial=g0.initial;
+      newG.initial=(angle)=>{const poses=priorInitial(angle);if(!poses)return null;const A=world(poses,d.idA,d.pA),B=world(poses,d.idB,d.pB),X=intersection(A,d.l1,B,d.l2,d.branch);if(!X)return null;
+        poses[d.uid]=[...A,Math.atan2(X[1]-A[1],X[0]-A[0])];poses[d.vid]=[...B,Math.atan2(X[1]-B[1],X[0]-B[0])];return poses;};fresh=newG;}
+    fresh.output=g.output;fresh.label=g.label;fresh.family=g.family;return fresh;
+  }
+  return {...g,seedPoses:g.seedPoses};
+}
+function candidateFactory(rand,legacy,depth=1,elite=null){
+  let base;
+  if(elite&&rand()<.18){base=restoreGraph(stripGraph(elite));return base;}
+  if(rand()<.58)base=randomFourbar(rand,legacy);else base=randomSlider(rand);
+  const additions=Math.floor(rand()*(Math.min(2,depth)+1));
+  for(let i=0;i<additions;i++){
+    const next=attachDyad(base,rand);
+    if(!next)break;
+    base=next;
+  }
+  return base;
+}
+return {TAU,rot,add,sub,len,cross,world,bodyPose,clone,rng,validate,equationSystem,solve,intersection,fromLegacyFourbar,sliderCrank,randomSlider,randomFourbar,motion,score,attachDyad,stripGraph,restoreGraph,candidateFactory};
+});
+
+</script><script>
+/* Mechanism graph mutation + objective search; experimental, kinematics only. */
+(function(root,factory){
+  if(typeof module==='object'&&module.exports)module.exports=factory(require('./graph-engine.js'),require('./legacy-fourbar.js'));
+  else root.EZDiscovery=factory(root.EZGraph,root.EngineZero);
+})(typeof globalThis!=='undefined'?globalThis:this,function(G,K){
+'use strict';
+const BEST_LEGACY=[160,45.5716293901412,136.13500308297267,78.71305737718521,190.36349301013988,-9.201462355515059,-0.6737871086365779,0.35077083256358144];
+function mutate(g,rand,depth){
+  const count=(g.dyads||[]).length;
+  if(count<depth&&rand()<.18){const candidate=G.attachDyad(g,rand);if(candidate)return candidate;}
+  if(count>0&&rand()<.17){
+    const plain=G.stripGraph(g);plain.dyads.pop();plain.output=count===1?{body:plain.meta.base==='4R'?'coupler':'rod',point:plain.meta.base==='4R'?[plain.meta.parameters[4],plain.meta.parameters[5]]:[plain.meta.parameters.point,plain.meta.parameters.normal]}:{body:plain.dyads[count-2].uid,point:[plain.dyads[count-2].l1*.6,18]};
+    try{return G.restoreGraph(plain);}catch(e){return null;}
+  }
+  if(count>0&&rand()<.22){
+    const plain=G.stripGraph(g),removed=plain.dyads.pop();
+    plain.output=count===1?{body:plain.meta.base==='4R'?'coupler':'rod',point:[55,20]}:{body:plain.dyads[count-2].uid,point:[plain.dyads[count-2].l1*.6,18]};
+    try{
+      const parent=G.restoreGraph(plain);
+      const newG=G.attachDyad(parent,rand);if(newG)return newG;
+    }catch(e){}
+  }
+  const plain=G.stripGraph(g),size=rand()<.16?1.6:.55;
+  if(count>0&&rand()<.35){
+    const d=plain.dyads[count-1];
+    const property=rand()<.5?'pA':'pB',k=Math.floor(rand()*2);
+    d[property][k]+=(rand()-.5)*22*size;
+    if(rand()<.6){d.l1=Math.max(12,d.l1+(rand()-.5)*18*size);d.l2=Math.max(12,d.l2+(rand()-.5)*18*size);}
+  } else if(rand()<.55){
+    const p=plain.meta.parameters;
+    if(plain.meta.base==='4R'){
+      const k=Math.floor(rand()*8),steps=[12,7,12,12,18,16,.23,.28];
+      p[k]+=(rand()-.5)*2*steps[k]*size;
+      if(!K.geometryValid(p))return null;
+      if(count===0&&k===4)plain.output.point[0]=p[4];
+      if(count===0&&k===5)plain.output.point[1]=p[5];
+    }else{
+      const keys=['crank','rod','offset','point','normal','rotation','phase'];const k=keys[Math.floor(rand()*keys.length)],step={crank:9,rod:12,offset:7,point:15,normal:18,rotation:.20,phase:.22}[k];
+      p[k]+=(rand()-.5)*2*step*size;
+      if(p.crank<8||p.rod<=p.crank+Math.abs(p.offset)+5)return null;
+      if(count===0&&k==='point')plain.output.point[0]=p.point;
+      if(count===0&&k==='normal')plain.output.point[1]=p.normal;
+    }
+  }else{
+    const k=Math.floor(rand()*2);plain.output.point[k]+=(rand()-.5)*28*size;
+    if(count>0&&rand()<.09){
+      const d=plain.dyads[count-1];plain.output.body=plain.output.body===d.uid?d.vid:d.uid;
+    }
+  }
+  try{return G.restoreGraph(plain);}catch(e){return null;}
+}
+function createSession(brief={},opts={}){
+  const target=K.targetPath({mode:brief.mode||'step',stroke:brief.stroke||120,lift:brief.lift||38,n:brief.n||36});
+  const rand=G.rng(opts.seed??20261115),depth=opts.depth??2;
+  const archive=[],champions=new Map(),recent=[],wiringSignatures=new Set();
+  let count=0,failed=0,best=null,imported=0;
+  const baseline=K.crankBaseline(target);
+  function evaluate(g,origin='generated'){
+    count++;
+    const trace=G.motion(g,target.length);
+    if(!trace.ok){failed++;return {ok:false,reason:trace.reason};}
+    const fitness=G.score(g,trace,target);
+    wiringSignatures.add(g.joints.map(j=>[j.a,j.b].sort().join(':')+':'+j.type).sort().join('|'));
+    const candidate={graph:g,trace,fitness,origin,attempt:count};
+    recent.unshift({family:g.family,rms:fitness.rms,score:fitness.score,attempt:count});if(recent.length>40)recent.pop();
+    const former=champions.get(g.family);
+    if(!former||candidate.fitness.score<former.fitness.score)champions.set(g.family,candidate);
+    archive.push(candidate);archive.sort((a,b)=>a.fitness.score-b.fitness.score);
+    if(archive.length>18)archive.length=18;
+    if(!best||candidate.fitness.score<best.fitness.score)best=candidate;
+    return {ok:true,candidate};
+  }
+  // This prior numerical result is an incumbent, not a novel or withheld design.
+  evaluate(G.fromLegacyFourbar(BEST_LEGACY),'prior four-bar incumbent');
+  function step(batch=10){
+    for(let i=0;i<batch;i++){
+      let g=null;
+      if(rand()<.29||!archive.length)g=G.candidateFactory(rand,K,depth);
+      else{
+        let parent;
+        if(champions.size>1&&rand()<.52)parent=[...champions.values()][Math.floor(rand()*champions.size)];
+        else parent=archive[Math.floor(Math.pow(rand(),1.5)*archive.length)];
+        g=mutate(parent.graph,rand,depth);
+      }
+      if(g)evaluate(g);
+      else{count++;failed++;}
+    }
+    return summary();
+  }
+  function addGraph(graph){
+    const g=G.restoreGraph(graph);const result=evaluate(g,'imported design');if(result.ok)imported++;
+    return result;
+  }
+  function summary(){return {attempts:count,feasible:count-failed,failed,best,baseline,champions:[...champions.values()].sort((a,b)=>a.fitness.score-b.fitness.score),recent,repertoire:champions.size,uniqueWiringPatterns:wiringSignatures.size,imported};}
+  return {target,step,addGraph,summary,brief,seed:opts.seed??20261115,depth};
+}
+return {BEST_LEGACY,mutate,createSession};
+});
+
+</script>
+<script>
+(function(){
+'use strict';
+const G=window.EZGraph,D=window.EZDiscovery,K=window.EngineZero,$=id=>document.getElementById(id),ns='http://www.w3.org/2000/svg';
+const COLORS=['#f0bb82','#a3f0c3','#a6c7fd','#d1aaee','#efdba1','#fcacc0','#94e1c5','#e7c8d3'];
+const el=(tag,attrs={},txt)=>{const e=document.createElementNS(ns,tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,String(v));if(txt!==undefined)e.textContent=txt;return e;};
+const fmt=(x,n=2)=>Number(x).toFixed(n),download=(name,content,type)=>{const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);};
+let depth=2,session,selected=null,angle=0,playing=true,working=false,view='motion',stamp=0;
+const brief=()=>({mode:$('mode').value,stroke:+$('stroke').value,lift:+$('lift').value,n:36});
+function reset(){if(working)return;session=D.createSession(brief(),{seed:+$('seed').value||20261115,depth});selected=null;angle=0;showBest();$('searchstatus').textContent='Ready for generation. Previous search reset.';$('progress').style.width='0%';}
+function showBest(){const s=session.summary();if(!selected||!s.champions.includes(selected))selected=s.best;draw();}
+function active(){return selected||session.summary().best;}
+function setView(next){view=next;$('motionTab').classList.toggle('active',next==='motion');$('topologyTab').classList.toggle('active',next==='topology');$('scene').style.display=next==='motion'?'block':'none';$('topologyScene').style.display=next==='topology'?'block':'none';draw();}
+function linePath(points,fn,closed=true){return points.map((p,i)=>(i?'L':'M')+fmt(fn(p)[0],2)+' '+fmt(fn(p)[1],2)).join(' ')+(closed?' Z':'');}
+function drawMotion(c){
+ const svg=$('scene');svg.replaceChildren();const t=c.trace,idx=Math.round(angle/360*t.frames.length)%t.frames.length,poses=t.frames[idx],pCurrent=G.world(poses,c.graph.output.body,c.graph.output.point),shift=c.fitness.offset;
+ const shifted=p=>[p[0]+shift.x,p[1]+shift.y];
+ const all=[...session.target.map(p=>[p.x,p.y]),...session.summary().baseline.points.map(p=>[p.x,p.y]),...t.points.map(p=>shifted([p.x,p.y]))];
+ for(const joint of c.graph.joints){all.push(shifted(G.world(poses,joint.a,joint.pa)),shifted(G.world(poses,joint.b,joint.pb)));}
+ all.push(shifted(pCurrent));
+ const minX=Math.min(...all.map(q=>q[0]))-22,maxX=Math.max(...all.map(q=>q[0]))+22,minY=Math.min(...all.map(q=>q[1]))-22,maxY=Math.max(...all.map(q=>q[1]))+22;
+ const scale=Math.min(915/(maxX-minX),395/(maxY-minY)),toScreen=p=>[(p[0]-(minX+maxX)/2)*scale+500,237.5-(p[1]-(minY+maxY)/2)*scale];
+ const defs=el('defs'),pattern=el('pattern',{id:'sceneGrid',width:28,height:28,patternUnits:'userSpaceOnUse'});pattern.appendChild(el('path',{d:'M 28 0 L 0 0 0 28',stroke:'#233744','stroke-width':.7,fill:'none'}));defs.appendChild(pattern);svg.append(defs,el('rect',{width:1000,height:475,fill:'url(#sceneGrid)'}));
+ const layer=el('g');svg.appendChild(layer);
+ function path(points,color,dash='',width=2,opacity=1){layer.appendChild(el('path',{d:linePath(points,toScreen),stroke:color,fill:'none','stroke-width':width,'stroke-linejoin':'round','stroke-dasharray':dash,opacity}));}
+ path(session.target.map(p=>[p.x,p.y]),'#8fcefa','7 6',2.6,.97);
+ path(session.summary().baseline.points.map(p=>[p.x,p.y]),'#edc892','5 6',1.9,.72);
+ path(c.fitness.aligned.map(p=>[p.x,p.y]),'#a3f0c3','',3,.97);
+ // Draw each rigid body's characteristic segment between its furthest-apart connection anchors.
+ const joints=c.graph.joints;
+ for(let i=0;i<c.graph.bodies.length;i++){
+   const body=c.graph.bodies[i],anchors=[];
+   for(const j of joints){if(j.a===body.id)anchors.push(G.world(poses,j.a,j.pa));if(j.b===body.id)anchors.push(G.world(poses,j.b,j.pb));}
+   if(body.id===c.graph.output.body)anchors.push(G.world(poses,body.id,c.graph.output.point));
+   if(anchors.length===0)continue;
+   let first=anchors[0],last=anchors[0],max=-1;
+   for(const a of anchors)for(const b of anchors){const dist=G.len(G.sub(a,b));if(dist>max){max=dist;first=a;last=b;}}
+   const start=toScreen(shifted(first)),end=toScreen(shifted(last)),color=body.id==='g'?'#617e93':COLORS[(i-1+COLORS.length)%COLORS.length];
+   if(max>1.5){layer.appendChild(el('line',{x1:start[0],y1:start[1],x2:end[0],y2:end[1],stroke:color,'stroke-width':body.id==='g'?7:8,opacity:body.id==='g'?.55:.88,'stroke-linecap':'round'}));
+    layer.appendChild(el('line',{x1:start[0],y1:start[1],x2:end[0],y2:end[1],stroke:'#071018','stroke-width':1.5,opacity:.5}));}
+ }
+ for(const j of joints){const p=toScreen(shifted(G.world(poses,j.a,j.pa)));layer.appendChild(el('circle',{cx:p[0],cy:p[1],r:j.type==='P'?7:5.6,fill:'#0c1a23',stroke:j.type==='P'?'#edc892':'#d9e9e9','stroke-width':2}));}
+ const p=toScreen(shifted(pCurrent));layer.appendChild(el('circle',{cx:p[0],cy:p[1],r:11,stroke:'#a3f0c3','stroke-width':2,fill:'#a3f0c32a'}));layer.appendChild(el('circle',{cx:p[0],cy:p[1],r:4.7,fill:'#a3f0c3'}));layer.appendChild(el('text',{x:p[0]+16,y:p[1]-14,fill:'#a3f0c3','font-size':12,'font-family':'ui-monospace,monospace'},'OUTPUT'));
+ svg.appendChild(el('text',{x:25,y:32,fill:'#7d9aa8','font-size':12,'font-family':'ui-monospace,monospace'},'CONSTRAINT-SOLVED MOTION / '+c.graph.family));
+}
+function drawTopology(c){
+ const svg=$('topologyScene');svg.replaceChildren();svg.appendChild(el('rect',{width:1000,height:475,fill:'#0d1823'}));
+ const bodies=c.graph.bodies,N=bodies.length,pos={};
+ bodies.forEach((b,i)=>{const theta=-Math.PI/2+(i/N)*2*Math.PI;pos[b.id]=[500+Math.cos(theta)*300,238+Math.sin(theta)*150];});
+ for(const j of c.graph.joints){const A=pos[j.a],B=pos[j.b];svg.appendChild(el('line',{x1:A[0],y1:A[1],x2:B[0],y2:B[1],stroke:j.type==='P'?'#efc88e':'#718998','stroke-width':j.type==='P'?4:3,'stroke-dasharray':j.type==='P'?'9 5':''}));const mid=[(A[0]+B[0])/2,(A[1]+B[1])/2];svg.appendChild(el('text',{x:mid[0]+7,y:mid[1]-7,fill:j.type==='P'?'#efc88e':'#a4b6be','font-family':'ui-monospace,monospace','font-size':11},j.type));}
+ bodies.forEach((b,i)=>{const [x,y]=pos[b.id],color=b.id==='g'?'#8ea4b0':COLORS[(i-1+COLORS.length)%COLORS.length];svg.appendChild(el('circle',{cx:x,cy:y,r:31,fill:'#172a34',stroke:color,'stroke-width':3}));svg.appendChild(el('text',{x,y:y+3,'text-anchor':'middle',fill:'#e8f3f2','font-family':'ui-monospace,monospace','font-size':10},b.id.length>10?b.id.slice(0,10):b.id));if(b.id===c.graph.output.body)svg.appendChild(el('text',{x,y:y+54,'text-anchor':'middle',fill:'#a3f0c3','font-family':'ui-monospace,monospace','font-size':12},'OUTPUT'));if(b.id===c.graph.driver.body)svg.appendChild(el('text',{x,y:y-46,'text-anchor':'middle',fill:'#edc892','font-family':'ui-monospace,monospace','font-size':12},'DRIVER'));});
+ svg.appendChild(el('text',{x:25,y:35,fill:'#91a9b3','font-family':'ui-monospace,monospace','font-size':12},'BODY-JOINT CONNECTIVITY / R = ROTARY, P = PRISMATIC'));
+}
+ function draw(){if(!session)return;const s=session.summary(),c=active();$('bestError').textContent=fmt(c.fitness.rms);$('baseline').textContent=fmt(s.baseline.rms);$('evaluated').textContent=s.attempts.toLocaleString();$('successLabel').textContent=`valid cycles: ${s.feasible.toLocaleString()} · rejected: ${s.failed}`;$('families').textContent=s.repertoire;
+ document.querySelector('#families + small').textContent=`${s.uniqueWiringPatterns} labeled wiring patterns`;
+ $('canvasTitle').textContent=`${c.graph.label} — ${c.fitness.rms.toFixed(2)} mm RMS`;
+ $('phase').value=angle;$('phaseLabel').textContent=angle+'°';
+ if(view==='motion')drawMotion(c);else drawTopology(c);
+ const k=c.graph.bodies.length,n=c.graph.joints.length,df=3*(k-1)-2*n;
+ $('checks').replaceChildren(...[
+  ['Movable bodies',k-1],['Rotary / sliding joints',n],['Computed pre-actuation DOF',df],['Cycle closure mismatch',fmt(c.trace.cycleError,4)+' mm'],['Maximum constraint residual',fmt(c.trace.worstResidual,5)+' mm'],['Fitting penalty',fmt(c.fitness.complexityPenalty,2)+' mm'],['Solver correction steps',c.trace.iterations]
+ ].map(([title,value])=>{const row=document.createElement('div');row.className='keyvalue';const l=document.createElement('span');l.textContent=title;const r=document.createElement('b');r.textContent=value;row.append(l,r);return row;}));
+ $('joints').replaceChildren(...c.graph.joints.map(j=>{const span=document.createElement('span');span.textContent=j.a+' — '+j.type+' — '+j.b;return span;}));
+ $('champions').replaceChildren(...s.champions.map(x=>{const b=document.createElement('button');b.className='candidate';b.setAttribute('aria-pressed',String(c===x));const label=document.createElement('div');label.className='title';label.textContent=x.graph.family;const count=document.createElement('span');count.className='pill';count.textContent=x.graph.bodies.length+' links';label.appendChild(count);
+ const score=document.createElement('div');score.className='score';score.textContent=fmt(x.fitness.rms)+' mm';const caption=document.createElement('div');caption.className='caption';caption.textContent='FULL CYCLE · VERIFIED';b.append(label,score,caption);b.addEventListener('click',()=>{selected=x;draw();});return b;}));
+ if(!$('editPanel').open)$('graphJSON').value=JSON.stringify(G.stripGraph(c.graph),null,2);
+}
+async function run(count){if(working)return;working=true;const signal=++stamp,button=$('search'),more=$('more');button.disabled=more.disabled=true;let done=0;$('progress').style.width='0%';
+ try{while(done<count&&signal===stamp){const n=Math.min(8,count-done);session.step(n);done+=n;const s=session.summary();$('progress').style.width=(100*done/count).toFixed(1)+'%';$('searchstatus').textContent=`Generated ${done}/${count} · ${s.feasible} feasible · ${s.repertoire} families · best ${fmt(s.best.fitness.rms)} mm`;
+ if(!selected||s.best.fitness.score<selected.fitness.score)selected=s.best;
+ if(done%32===0||done===count)draw();await new Promise(resolve=>setTimeout(resolve,0));}
+ const s=session.summary();$('searchstatus').textContent=`Completed. ${s.attempts} attempted, ${s.feasible} validated over a full cycle; ${s.repertoire} topology families. Rankings are research candidates only.`;draw();}
+ catch(e){$('searchstatus').textContent='Search failed: '+e.message;console.error(e);}finally{working=false;button.disabled=more.disabled=false;}
+}
+function syncBrief(){if(working)return;$('strokeVal').textContent=$('stroke').value+' mm';$('liftVal').textContent=$('lift').value+' mm';reset();}
+$('search').addEventListener('click',()=>run(200));$('more').addEventListener('click',()=>run(500));$('reset').addEventListener('click',reset);
+for(const key of ['mode','stroke','lift','seed'])$(key).addEventListener('change',syncBrief);
+for(const btn of document.querySelectorAll('[data-depth]'))btn.addEventListener('click',()=>{if(working)return;depth=+btn.dataset.depth;document.querySelectorAll('[data-depth]').forEach(b=>b.classList.toggle('selected',b===btn));reset();});
+$('motionTab').addEventListener('click',()=>setView('motion'));$('topologyTab').addEventListener('click',()=>setView('topology'));
+$('play').addEventListener('click',()=>{playing=!playing;$('play').textContent=playing?'Pause':'Play';});$('phase').addEventListener('input',()=>{angle=+$('phase').value;playing=false;$('play').textContent='Play';draw();});
+$('exportJSON').addEventListener('click',()=>{const c=active(),payload={project:'ENGINE ZERO',schema_version:'0.2',units:'millimetres',brief:brief(),seed:session.seed,graph:G.stripGraph(c.graph),metrics:{rmse_mm:c.fitness.rms,penalty_mm:c.fitness.complexityPenalty,closure_error_mm:c.trace.cycleError,max_constraint_error_mm:c.trace.worstResidual},warning:'Ideal kinematics only. Does not verify forces, stresses, friction, collision, fatigue, manufacturability or novelty.'};download('engine-zero-graph.json',JSON.stringify(payload,null,2),'application/json');});
+$('exportSVG').addEventListener('click',()=>{const node=(view==='motion'?$('scene'):$('topologyScene')).cloneNode(true);node.setAttribute('xmlns',ns);node.setAttribute('width','1000');node.setAttribute('height','475');download('engine-zero-geometry.svg',new XMLSerializer().serializeToString(node),'image/svg+xml');});
+$('exportCSV').addEventListener('click',()=>{const s=session.summary(),rows=[['family','links','joints','rmse_mm','complexity_penalty_mm','score','cycle_error_mm'],...s.champions.map(c=>[c.graph.family,c.graph.bodies.length,c.graph.joints.length,c.fitness.rms,c.fitness.complexityPenalty,c.fitness.score,c.trace.cycleError])];download('engine-zero-family-champions.csv',rows.map(row=>row.map(x=>'"'+String(x).replaceAll('"','""')+'"').join(',')).join('\n'),'text/csv');});
+$('editPanel').addEventListener('toggle',()=>{if($('editPanel').open)$('graphJSON').value=JSON.stringify(G.stripGraph(active().graph),null,2);});
+$('import').addEventListener('click',()=>{try{const data=JSON.parse($('graphJSON').value);const r=session.addGraph(data.graph||data);if(!r.ok){$('feedback').textContent='Rejected: '+r.reason;return;}selected=r.candidate;$('feedback').textContent='Valid graph imported, solved, and ranked · RMSE '+fmt(r.candidate.fitness.rms)+' mm';draw();}catch(e){$('feedback').textContent='Import failed: '+e.message;}});
+let last=0;function animate(now){if(playing&&!working&&now-last>50){angle=(angle+3)%360;draw();last=now;}requestAnimationFrame(animate);}
+reset();requestAnimationFrame(animate);
+})();
+</script></body></html>
