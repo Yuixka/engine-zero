@@ -1,0 +1,27 @@
+{
+  "project": "Engine Zero",
+  "baseline_version": "0.2.1",
+  "architecture": "five-workstream-coordinated-monorepo",
+  "source_of_truth": "github:Yuixka/engine-zero",
+  "status": "experimental planar graph-based kinematics only",
+  "current_capabilities": [
+    "joint/body graph",
+    "four-bar and slider-crank primitives",
+    "dyad-generated six/eight-link mechanisms",
+    "planar constraint solver",
+    "seeded topology search",
+    "JSON SVG CSV research exports"
+  ],
+  "not_yet_supported": [
+    "parametric 3D CAD assets",
+    "true component connector compatibility",
+    "force or stress simulation",
+    "robust collision clearance",
+    "physical prototype testing",
+    "patent novelty verification",
+    "independent five-agent execution"
+  ],
+  "next_integrated_milestone": "held-out cross-topology benchmark",
+  "last_test_outcome": "local baseline tests passed 2026-11-15; GitHub CI pending",
+  "notes": "All five roles read the daily common handoff; verify CI before accepting changes."
+}
