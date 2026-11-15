@@ -1,7 +1,7 @@
 {
   "date": "2026-11-15",
   "project": "Engine Zero",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "is_autonomous_agent_run": false,
   "source_of_truth": "https://github.com/Yuixka/engine-zero",
   "github_commit": "487e2a31d9b86247a0adfd847c8177266ebea2e4",
@@ -9,7 +9,9 @@
     "Connected GitHub repository with verified write access",
     "Imported v0.2 graph-based mechanism engine and browser interface",
     "Committed five-system coordination charter, regression tests and GitHub Actions CI workflow",
-    "Updated 4 PM daily task to use this repository"
+    "Updated 4 PM daily task to use this repository",
+    "Executed immediate five-workstream run; implemented reproducible held-out benchmark (seed 716, 120 generated candidates).",
+    "Compared five mechanism families on synthetic step, quick, larger-step and oval trajectories and preserved negative results."
   ],
   "file_changes": {
     "added": [
@@ -24,10 +26,18 @@
       "scripts/test-handoff.js",
       "docs/AGENT_CHARTERS.md",
       "state/PROJECT_STATE.json",
-      ".github/workflows/engine-zero-ci.yml"
+      ".github/workflows/engine-zero-ci.yml",
+      "experiments/benchmark.js",
+      "experiments/test-benchmark.js",
+      "experiments/results/2026-11-15.md"
     ],
     "removed": [],
-    "changed": []
+    "changed": [
+      ".github/workflows/engine-zero-ci.yml",
+      "state/PROJECT_STATE.json",
+      "CHANGELOG.md",
+      "handoffs/2026-11-15.json"
+    ]
   },
   "test_evidence": [
     {
@@ -45,6 +55,18 @@
       "name": "GitHub Actions CI",
       "status": "PENDING",
       "source": "no workflow run confirmed yet"
+    },
+    {
+      "name": "node experiments/test-benchmark.js",
+      "status": "PASS",
+      "source": "local Node.js v22.16.0",
+      "note": "determinism and held-out scores checked on the benchmark source that will be committed"
+    },
+    {
+      "name": "node experiments/benchmark.js --seed=716 --budget=120 --depth=2",
+      "status": "PASS",
+      "source": "local Node.js v22.16.0",
+      "note": "121 evaluated incl prior incumbent, 5 families, 32 signatures; report in experiments/results/2026-11-15.md"
     }
   ],
   "software_dependency_changes": "No external Node packages added; Node.js 18+ baseline; GitHub Actions config uses Node 22.",
@@ -57,11 +79,19 @@
         "verification",
         "experiment-loop"
       ],
-      "today_proposed_priority": "Component library not yet implemented; define units and part schema",
-      "yesterday_change_log": "Baseline import only; no previous daily cycle",
-      "completed_work": [],
-      "test_evidence": [],
-      "blocker_list": []
+      "yesterday_change_log": "Initial repository bootstrap and GitHub CI passing on the previous commit",
+      "today_completed_work": "No CAD library changes. Verified that benchmark-only work has no new asset dependencies. Next: units/part schema.",
+      "read_other_four_briefings": true,
+      "software_changes": "Zero external packages added; benchmark uses existing Node.js built-in APIs",
+      "interface_changes": "Additive benchmark() API in experiments/benchmark.js; existing graph APIs unchanged",
+      "test_evidence": [
+        "node test.js: PASS locally",
+        "node experiments/test-benchmark.js: PASS locally"
+      ],
+      "blocker_list": [
+        "Independent five-agent execution not implemented",
+        "No physics beyond planar kinematics"
+      ]
     },
     {
       "id": "assembly-graph",
@@ -71,11 +101,19 @@
         "verification",
         "experiment-loop"
       ],
-      "today_proposed_priority": "Existing 2D graph and R/P joints imported; plan typed component interfaces",
-      "yesterday_change_log": "Baseline import only; no previous daily cycle",
-      "completed_work": [],
-      "test_evidence": [],
-      "blocker_list": []
+      "yesterday_change_log": "Initial repository bootstrap and GitHub CI passing on the previous commit",
+      "today_completed_work": "Existing joint graph and solver used unchanged, benchmark evaluates cycles with fresh 96-point traces. Next: independent closure checks.",
+      "read_other_four_briefings": true,
+      "software_changes": "Zero external packages added; benchmark uses existing Node.js built-in APIs",
+      "interface_changes": "Additive benchmark() API in experiments/benchmark.js; existing graph APIs unchanged",
+      "test_evidence": [
+        "node test.js: PASS locally",
+        "node experiments/test-benchmark.js: PASS locally"
+      ],
+      "blocker_list": [
+        "Independent five-agent execution not implemented",
+        "No physics beyond planar kinematics"
+      ]
     },
     {
       "id": "design-engine",
@@ -85,11 +123,19 @@
         "verification",
         "experiment-loop"
       ],
-      "today_proposed_priority": "Existing seeded graph topology search imported; plan held-out benchmark",
-      "yesterday_change_log": "Baseline import only; no previous daily cycle",
-      "completed_work": [],
-      "test_evidence": [],
-      "blocker_list": []
+      "yesterday_change_log": "Initial repository bootstrap and GitHub CI passing on the previous commit",
+      "today_completed_work": "Training archive can now be assessed without picking winners from held-out data. Next: fair per-family optimizer budget.",
+      "read_other_four_briefings": true,
+      "software_changes": "Zero external packages added; benchmark uses existing Node.js built-in APIs",
+      "interface_changes": "Additive benchmark() API in experiments/benchmark.js; existing graph APIs unchanged",
+      "test_evidence": [
+        "node test.js: PASS locally",
+        "node experiments/test-benchmark.js: PASS locally"
+      ],
+      "blocker_list": [
+        "Independent five-agent execution not implemented",
+        "No physics beyond planar kinematics"
+      ]
     },
     {
       "id": "verification",
@@ -99,11 +145,19 @@
         "design-engine",
         "experiment-loop"
       ],
-      "today_proposed_priority": "Local baseline regression and handoff-schema checks passed before import; remote CI pending",
-      "yesterday_change_log": "Baseline import only; no previous daily cycle",
-      "completed_work": [],
-      "test_evidence": [],
-      "blocker_list": []
+      "yesterday_change_log": "Initial repository bootstrap and GitHub CI passing on the previous commit",
+      "today_completed_work": "Local Node test.js and new experiments/test-benchmark.js both pass; GitHub CI must confirm exact committed source.",
+      "read_other_four_briefings": true,
+      "software_changes": "Zero external packages added; benchmark uses existing Node.js built-in APIs",
+      "interface_changes": "Additive benchmark() API in experiments/benchmark.js; existing graph APIs unchanged",
+      "test_evidence": [
+        "node test.js: PASS locally",
+        "node experiments/test-benchmark.js: PASS locally"
+      ],
+      "blocker_list": [
+        "Independent five-agent execution not implemented",
+        "No physics beyond planar kinematics"
+      ]
     },
     {
       "id": "experiment-loop",
@@ -113,18 +167,27 @@
         "design-engine",
         "verification"
       ],
-      "today_proposed_priority": "Plan reproducible candidate ledger and independent objective suite",
-      "yesterday_change_log": "Baseline import only; no previous daily cycle",
-      "completed_work": [],
-      "test_evidence": [],
-      "blocker_list": []
+      "yesterday_change_log": "Initial repository bootstrap and GitHub CI passing on the previous commit",
+      "today_completed_work": "Added seeded held-out experiment protocol, per-family score comparison and recorded negative results (no cherry-picking).",
+      "read_other_four_briefings": true,
+      "software_changes": "Zero external packages added; benchmark uses existing Node.js built-in APIs",
+      "interface_changes": "Additive benchmark() API in experiments/benchmark.js; existing graph APIs unchanged",
+      "test_evidence": [
+        "node test.js: PASS locally",
+        "node experiments/test-benchmark.js: PASS locally"
+      ],
+      "blocker_list": [
+        "Independent five-agent execution not implemented",
+        "No physics beyond planar kinematics"
+      ]
     }
   ],
   "blockers": [
-    "No confirmed cloud environment bound to scheduled task; GitHub connector writes now work",
     "Independent five-agent execution not configured; five workstreams coordinated by one task",
-    "No real 3D CAD, loads, collision, manufacturing or novelty verification"
+    "No real 3D CAD, loads, collision, manufacturing or novelty verification",
+    "Cloud execution environment status not confirmed by this run; GitHub tools and local Node are functional"
   ],
   "failures": [],
-  "coordinator_decision": "Next integrated milestone: independent cross-topology benchmark with reproducible seed and held-out trajectories."
+  "coordinator_decision": "Integrated reproducible cross-topology held-out benchmark. Next: equal-budget optimization and independent metric audit.",
+  "git_commit_parent": "2d6b62e55f574e3358c1436c5c5b3ba23244b57d"
 }
