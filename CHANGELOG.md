@@ -12,3 +12,8 @@
 - Added determinism and validation test and CI check.
 - Logged results including configurations that underperform a simple crank.
 - Cross-briefed five engineering workstreams; no five independent agents were spun up.
+
+## 2026-11-15 — v0.2.3 geometric audit
+- Added independent R/P joint geometry audit, driver and output consistency checks, and corruption tests.
+- Gated held-out scores on independently checked planar geometric closure.
+- Added documented falsifiable hypothesis and prior-art caveats; no new physics or novelty claim.

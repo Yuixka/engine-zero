@@ -15,6 +15,8 @@ jobs:
           node-version: '22'
       - name: Mechanism regression suite
         run: node test.js
+      - name: Independent geometry and corruption tests
+        run: node experiments/test-geometry-audit.js
       - name: Reproducible held-out benchmark regression
         run: node experiments/test-benchmark.js
       - name: Generate and verify cross-briefing
