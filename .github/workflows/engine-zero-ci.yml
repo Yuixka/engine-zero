@@ -17,6 +17,8 @@ jobs:
         run: node test.js
       - name: Reproducible held-out benchmark regression
         run: node experiments/test-benchmark.js
+      - name: Multi-seed audit regression
+        run: node experiments/test-multiseed-audit.js
       - name: Generate and verify cross-briefing
         run: |
           node scripts/handoff.js

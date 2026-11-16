@@ -1,0 +1,125 @@
+{
+  "date": "2026-11-16",
+  "project": "Engine Zero",
+  "version": "0.2.3-research",
+  "source_of_truth": "https://github.com/Yuixka/engine-zero",
+  "base_main_commit": "1c60af0096b04dc88191ce232dc67bdef04d060e",
+  "branch": "research/multiseed-generalization-20261116",
+  "previous_handoff": "handoffs/2026-11-15.json",
+  "workstream_coordination": "One coordinator, five logical roles; not independent agents",
+  "change": "Pre-registered multi-seed held-out generalization audit",
+  "hypothesis": "At least one generated non-four-bar family beats the crank baseline on held-out oval trajectory in >=3/5 seeds at budget 24; ancestry confound remains and must be measured",
+  "files": {
+    "added": [
+      "experiments/multiseed-audit.js",
+      "experiments/test-multiseed-audit.js",
+      "docs/research/2026-11-16-multiseed.md",
+      "handoffs/2026-11-16.json"
+    ],
+    "changed": [
+      ".github/workflows/engine-zero-ci.yml",
+      "state/PROJECT_STATE.json",
+      "CHANGELOG.md"
+    ],
+    "removed": []
+  },
+  "software_added": [],
+  "software_removed": [],
+  "software_changed": [
+    "CI adds Node.js multiseed regression"
+  ],
+  "test_evidence": {
+    "local": "not executed in this environment",
+    "github_ci": "pending"
+  },
+  "known_limitations": [
+    "2D ideal kinematics",
+    "No physical tests",
+    "No independent novel invention evidence",
+    "Fixed imported four-bar incumbent",
+    "Existing PR #1-#3 unmerged"
+  ],
+  "specialists": [
+    {
+      "id": "cad-library",
+      "receives_from": [
+        "assembly-graph",
+        "design-engine",
+        "verification",
+        "experiment-loop"
+      ],
+      "read_other_four_briefings": true,
+      "changes": "No CAD asset/schema changes; new experiment continues to assume millimetre planar geometry.",
+      "dependencies": "Graph geometry unit convention",
+      "tests": "CI audit tests pending",
+      "regressions": "No CAD regression expected",
+      "blockers": "No parameterized component schema/material records",
+      "next": "Define interface dimensions and tolerances without assuming materials"
+    },
+    {
+      "id": "assembly-graph",
+      "receives_from": [
+        "cad-library",
+        "design-engine",
+        "verification",
+        "experiment-loop"
+      ],
+      "read_other_four_briefings": true,
+      "changes": "No graph solver modifications; audit consumes validated G.motion outputs via benchmark.",
+      "dependencies": "Existing G.motion closure checks",
+      "tests": "Existing mechanism tests plus CI audit pending",
+      "regressions": "No solver API changes",
+      "blockers": "Planar only; no torque or contact",
+      "next": "Integrate PR #1 independent geometry closure audit after review"
+    },
+    {
+      "id": "design-engine",
+      "receives_from": [
+        "cad-library",
+        "assembly-graph",
+        "verification",
+        "experiment-loop"
+      ],
+      "read_other_four_briefings": true,
+      "changes": "Seeded 24-candidate trials now expose missing family coverage instead of silently selecting a favorable run.",
+      "dependencies": "D.createSession and fixed incumbent",
+      "tests": "Seed determinism regression pending CI",
+      "regressions": "No mutation algorithm changes",
+      "blockers": "Incumbent ancestry and unequal family budgets",
+      "next": "Record parent lineage and enforce equal independent family budgets"
+    },
+    {
+      "id": "verification",
+      "receives_from": [
+        "cad-library",
+        "assembly-graph",
+        "design-engine",
+        "experiment-loop"
+      ],
+      "read_other_four_briefings": true,
+      "changes": "New accounting and determinism assertions; missing/invalid trials retained in denominator.",
+      "dependencies": "Existing 4 held-out objectives and score API",
+      "tests": "GitHub CI pending",
+      "regressions": "Existing benchmark unchanged",
+      "blockers": "No independent physics validator",
+      "next": "Review PR #1/#2 geometry and score audit; merge independently"
+    },
+    {
+      "id": "experiment-loop",
+      "receives_from": [
+        "cad-library",
+        "assembly-graph",
+        "design-engine",
+        "verification"
+      ],
+      "read_other_four_briefings": true,
+      "changes": "Five preregistered seeds, per-target family coverage, RMS distribution and baseline win fractions.",
+      "dependencies": "Synthetic target generator and fixed crank baseline",
+      "tests": "GitHub CI pending",
+      "regressions": "No source behavior changed",
+      "blockers": "Synthetic targets; hardcoded incumbent contaminates ancestry",
+      "next": "Run multiple independent families and preregister external trajectory traces"
+    }
+  ],
+  "next": "Await CI; review PR #1-#3; enforce fair family budgets and ancestry before claiming generative improvement"
+}
