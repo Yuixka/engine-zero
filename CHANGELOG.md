@@ -17,3 +17,10 @@
 - Added independent R/P joint geometry audit, driver and output consistency checks, and corruption tests.
 - Gated held-out scores on independently checked planar geometric closure.
 - Added documented falsifiable hypothesis and prior-art caveats; no new physics or novelty claim.
+
+## 2026-11-16 — v0.3.0-alpha parametric connector foundation
+- Merged independent closure verifier (PR #1; CI green).
+- Merged initial nominal 2D parametric link/hub parts with exact revolute graph anchor mapping and SVG geometry (PR #7; CI green).
+- Rejects unsupported prismatic/rail bodies and invalid hole/margin dimensions rather than producing fictitious valid components.
+- PRs #2–#6 remain under review; multiseed PR #4 needs conflict resolution and held-out integrity review before merge.
+- NOT YET 3D STEP solids, realistic tolerance/loads, manufacturing-ready CAD, or genuine invention.
