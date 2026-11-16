@@ -12,3 +12,8 @@
 - Added determinism and validation test and CI check.
 - Logged results including configurations that underperform a simple crank.
 - Cross-briefed five engineering workstreams; no five independent agents were spun up.
+
+## 2026-11-16 — research branch: cross-seed generalization audit
+- Added pre-registered five-seed, four-target performance and coverage accounting with deterministic tests.
+- Explicitly reports absent/invalid family trials and hardcoded incumbent confounding.
+- Documented hypothesis and established commercial/research prior art; no invention claim.
