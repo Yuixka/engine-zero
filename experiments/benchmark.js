@@ -11,6 +11,7 @@ const path = require('node:path');
 const G = require('../graph-engine.js');
 const K = require('../legacy-fourbar.js');
 const D = require('../discovery.js');
+const {verifyMotion}=require('./geometry-audit.js');
 
 const TRAIN = Object.freeze({mode:'step',stroke:120,lift:38,n:36});
 const HELD_OUT = Object.freeze([
@@ -23,10 +24,12 @@ const round = (v) => Number.isFinite(v) ? Number(v.toFixed(6)) : null;
 function evaluate(graph, targetSpec) {
   const trace = G.motion(graph, targetSpec.n);
   if (!trace.ok) return {valid:false,reason:trace.reason,rms_mm:null,score_mm:null};
+  const audit=verifyMotion(graph,trace);
+  if(!audit.valid)return {valid:false,reason:'Independent geometric audit failed',rms_mm:null,score_mm:null,audit};
   const fit = G.score(graph,trace,K.targetPath(targetSpec));
   return {valid:true,rms_mm:round(fit.rms),score_mm:round(fit.score),
     complexity_penalty_mm:round(fit.complexityPenalty),
-    max_closure_residual_mm:round(trace.worstResidual),cycle_error_mm:round(trace.cycleError)};
+    max_closure_residual_mm:round(trace.worstResidual),cycle_error_mm:round(trace.cycleError),independent_audit:audit};
 }
 function benchmark({seed=716,budget=120,depth=2}={}) {
   if(!Number.isSafeInteger(seed)||!Number.isSafeInteger(budget)||budget<0||budget>2000||!Number.isSafeInteger(depth)||depth<0||depth>2)
@@ -59,7 +62,8 @@ function benchmark({seed=716,budget=120,depth=2}={}) {
       limitations:['All objectives synthetic, not measured','Translation-only output alignment (phase and rotation are fixed)',
       'No component library, stress, torque, collision, fabrication, or novelty validation',
       'Original four-bar incumbent is hardcoded, not discovered in this run',
-      'No claim of statistically representative generalization']},
+      'No claim of statistically representative generalization',
+      'Independent joint/driver/output geometry audit uses sampled solver poses, not external ground truth']},
     discovery:{attempts:s.attempts,valid:s.feasible,failed:s.failed,distinct_family_champions:champions.length,
       distinct_labeled_wiring_patterns:s.uniqueWiringPatterns,
       training_best_family:s.best?.graph.family??null,training_best_rms_mm:round(s.best?.fitness.rms)},

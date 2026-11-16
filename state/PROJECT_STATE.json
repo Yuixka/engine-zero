@@ -1,6 +1,6 @@
 {
   "project": "Engine Zero",
-  "baseline_version": "0.2.2",
+  "baseline_version": "0.2.3",
   "architecture": "five-workstream-coordinated-monorepo",
   "source_of_truth": "github:Yuixka/engine-zero",
   "status": "experimental planar graph-based kinematics only",
@@ -11,7 +11,8 @@
     "planar constraint solver",
     "seeded topology search",
     "JSON SVG CSV research exports",
-    "seeded training versus held-out synthetic benchmark across discovered topology families"
+    "seeded training versus held-out synthetic benchmark across discovered topology families",
+    "independent R/P joint, driver and output-trajectory consistency audit with corruption tests"
   ],
   "not_yet_supported": [
     "parametric 3D CAD assets",
@@ -22,7 +23,7 @@
     "patent novelty verification",
     "independent five-agent execution"
   ],
-  "next_integrated_milestone": "fair per-family optimization budget and independent metric audit",
-  "last_test_outcome": "local Node.js 22.16.0 test.js PASS; experiments/test-benchmark.js PASS; 121-candidate benchmark complete; GitHub CI pending",
+  "next_integrated_milestone": "equal-budget cross-family optimization, independent manufactured geometry and collision clearance",
+  "last_test_outcome": "GitHub CI on previous commit PASS; v0.2.3 independent audit CI to verify after commit",
   "notes": "All five roles read the daily common handoff; verify CI before accepting changes."
 }
