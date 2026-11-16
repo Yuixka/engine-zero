@@ -19,6 +19,8 @@ jobs:
         run: node experiments/test-geometry-audit.js
       - name: Reproducible held-out benchmark regression
         run: node experiments/test-benchmark.js
+      - name: Parametric graph connector regression
+        run: node components/test-parametric.js
       - name: Generate and verify cross-briefing
         run: |
           node scripts/handoff.js
