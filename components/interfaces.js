@@ -29,7 +29,7 @@ function auditRevoluteInterfaces(graph,{componentOptions={},pins={},groundBores=
     }
     const reasons=[];
     if(!finitePositive(pin))reasons.push('pin diameter missing or invalid');
-    for(let i=0;i<2;i++)if(!finitePositive(diameters[i]))reasons.push((i===0?j.a:j.b)+' bore diameter missing or invalid');
+    for(let i=0;i<2;i++)if(!finitePositive(diameters[i]))reasons.push(((i===0?j.a:j.b)==='g'?'ground':(i===0?j.a:j.b))+' bore diameter missing or invalid');
     let radialClearanceMm=null;
     if(!reasons.length){
       const radial=diameters.map(b=>(b-pin)/2);
