@@ -24,3 +24,8 @@
 - Rejects unsupported prismatic/rail bodies and invalid hole/margin dimensions rather than producing fictitious valid components.
 - PRs #2–#6 remain under review; multiseed PR #4 needs conflict resolution and held-out integrity review before merge.
 - NOT YET 3D STEP solids, realistic tolerance/loads, manufacturing-ready CAD, or genuine invention.
+
+## 2026-11-17 — typed revolute interface research PR
+- Added explicit pin/bore and ground fixture compatibility checker with nominal radial-clearance bounds.
+- Added adversarial regression controls for missing ground bores, oversized/undersized pins and unsupported joint types.
+- Nominal geometry only; no fabrication, bearing, tolerance or load proof.

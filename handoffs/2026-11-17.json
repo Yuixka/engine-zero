@@ -1,0 +1,188 @@
+{
+  "date": "2026-11-17",
+  "source_of_truth": "https://github.com/Yuixka/engine-zero",
+  "base_main": "ff70c3f38f67ed65a0ab023ab07f47bd9389709a",
+  "branch": "research/typed-revolute-interfaces-20261117",
+  "change": "Explicit nominal R-joint pin/bore compatibility, including ground fixtures",
+  "innovation_hypothesis": "Explicit interface gate catches missing and impossible nominal pin/bore fits without assuming missing hardware",
+  "benchmark": "node components/test-interfaces.js, plus existing CI suite",
+  "prior_art": "ISO 286 hole/shaft fit principles and established commercial assembly CAD; no novel invention claimed",
+  "files_changed": [
+    "components/interfaces.js",
+    "components/test-interfaces.js",
+    "docs/research/2026-11-17-interfaces.md",
+    ".github/workflows/engine-zero-ci.yml",
+    "state/PROJECT_STATE.json",
+    "CHANGELOG.md",
+    "handoffs/2026-11-17.json"
+  ],
+  "dependencies_added": [],
+  "dependencies_removed": [],
+  "regressions": "CI pending",
+  "blockers": [
+    "No 3D geometry, manufacturing tolerances, material or force validation",
+    "Open PRs #2–#6 need separate review; #4 has target-independence confound"
+  ],
+  "workstreams": [
+    {
+      "name": "Parametric CAD Component Library",
+      "previous_changes": "Added independent nominal pin/bore interface audit against component holes; needs future 3D geometry and true material/fit specifications",
+      "current_changes": "Added independent nominal pin/bore interface audit against component holes; needs future 3D geometry and true material/fit specifications",
+      "dependencies": [
+        "graph-engine.js",
+        "components/parametric.js"
+      ],
+      "tests": "CI pending",
+      "regressions": "not yet established",
+      "files_changed": [
+        "components/interfaces.js",
+        "components/test-interfaces.js",
+        "docs/research/2026-11-17-interfaces.md",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-17.json"
+      ],
+      "blockers": [
+        "3D physics and measured hardware unavailable"
+      ],
+      "next_tasks": [
+        "Add typed 3D connector geometry"
+      ],
+      "briefed_other_workstreams": [
+        "Physics-Aware Assembly Graph",
+        "Generative Design Engine",
+        "Simulation & Verification",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Physics-Aware Assembly Graph",
+      "previous_changes": "Graph R-joints map to typed pin diameters and explicit ground bores; no graph-engine.js change; P joints remain unsupported by component binding",
+      "current_changes": "Graph R-joints map to typed pin diameters and explicit ground bores; no graph-engine.js change; P joints remain unsupported by component binding",
+      "dependencies": [
+        "graph-engine.js",
+        "components/parametric.js"
+      ],
+      "tests": "CI pending",
+      "regressions": "not yet established",
+      "files_changed": [
+        "components/interfaces.js",
+        "components/test-interfaces.js",
+        "docs/research/2026-11-17-interfaces.md",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-17.json"
+      ],
+      "blockers": [
+        "3D physics and measured hardware unavailable"
+      ],
+      "next_tasks": [
+        "Integrate interface metadata into graph schema"
+      ],
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Generative Design Engine",
+        "Simulation & Verification",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Generative Design Engine",
+      "previous_changes": "Generated candidate geometry unchanged; future step: reject or penalize candidates lacking valid typed interfaces, with fair search budgets",
+      "current_changes": "Generated candidate geometry unchanged; future step: reject or penalize candidates lacking valid typed interfaces, with fair search budgets",
+      "dependencies": [
+        "graph-engine.js",
+        "components/parametric.js"
+      ],
+      "tests": "CI pending",
+      "regressions": "not yet established",
+      "files_changed": [
+        "components/interfaces.js",
+        "components/test-interfaces.js",
+        "docs/research/2026-11-17-interfaces.md",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-17.json"
+      ],
+      "blockers": [
+        "3D physics and measured hardware unavailable"
+      ],
+      "next_tasks": [
+        "Filter generated designs by feasibility"
+      ],
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Physics-Aware Assembly Graph",
+        "Simulation & Verification",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Simulation & Verification",
+      "previous_changes": "Added deterministic acceptance/rejection test for radial clearance and missing fixtures; 2D nominal checks do not prove physical safety",
+      "current_changes": "Added deterministic acceptance/rejection test for radial clearance and missing fixtures; 2D nominal checks do not prove physical safety",
+      "dependencies": [
+        "graph-engine.js",
+        "components/parametric.js"
+      ],
+      "tests": "CI pending",
+      "regressions": "not yet established",
+      "files_changed": [
+        "components/interfaces.js",
+        "components/test-interfaces.js",
+        "docs/research/2026-11-17-interfaces.md",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-17.json"
+      ],
+      "blockers": [
+        "3D physics and measured hardware unavailable"
+      ],
+      "next_tasks": [
+        "Independent clearance and interference checks"
+      ],
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Physics-Aware Assembly Graph",
+        "Generative Design Engine",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Autonomous Experimentation",
+      "previous_changes": "Falsifiable hypothesis and benchmark in docs/research/2026-11-17-interfaces.md; future experiment must measure feasible fraction across generated families and tolerance distributions",
+      "current_changes": "Falsifiable hypothesis and benchmark in docs/research/2026-11-17-interfaces.md; future experiment must measure feasible fraction across generated families and tolerance distributions",
+      "dependencies": [
+        "graph-engine.js",
+        "components/parametric.js"
+      ],
+      "tests": "CI pending",
+      "regressions": "not yet established",
+      "files_changed": [
+        "components/interfaces.js",
+        "components/test-interfaces.js",
+        "docs/research/2026-11-17-interfaces.md",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-17.json"
+      ],
+      "blockers": [
+        "3D physics and measured hardware unavailable"
+      ],
+      "next_tasks": [
+        "Multi-seed feasible-design yield benchmark"
+      ],
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Physics-Aware Assembly Graph",
+        "Generative Design Engine",
+        "Simulation & Verification"
+      ]
+    }
+  ]
+}

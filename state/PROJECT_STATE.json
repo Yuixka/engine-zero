@@ -14,7 +14,8 @@
     "seeded training versus held-out synthetic benchmark across discovered topology families",
     "independent R/P joint, driver and output-trajectory consistency audit with corruption tests",
     "nominal 2D parametric hub and capsule components bound to revolute graph joint anchors",
-    "millimetre-scaled nominal SVG geometry and structured part JSON"
+    "millimetre-scaled nominal SVG geometry and structured part JSON",
+    "experimental nominal revolute pin/bore compatibility audit with explicit ground interfaces"
   ],
   "not_yet_supported": [
     "parametric 3D CAD assets",
@@ -25,7 +26,7 @@
     "patent novelty verification",
     "independent five-agent execution"
   ],
-  "next_integrated_milestone": "3D solids and typed bearing/pin/slider interfaces, benchmark integrity fixes and independent geometric clearance gates",
-  "last_test_outcome": "GitHub CI PASS for PR #1 independent audit and PR #7 parametric connector tests; merged to main, merged main CI pending",
+  "next_integrated_milestone": "Propagate explicit typed pin/bore compatibility into generated candidate acceptance; add manufacturing tolerance distributions and 3D stacking verification",
+  "last_test_outcome": "2026-11-17 interface audit test pending CI; previous main CI PASS",
   "notes": "3D CAD, manufacturing readiness, material and load properties remain unverified. Four other PRs remain draft/review; PR #4 has merge conflicts and an invalid independent held-out assumption needing correction."
 }
