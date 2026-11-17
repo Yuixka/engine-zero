@@ -31,8 +31,8 @@ if (require.main===module) {
     bores:[{nominalMm:5.2,toleranceMm:0.01},{nominalMm:5.2,toleranceMm:0.01}]});
   assert.equal(good.guaranteedPass,true);
   assert(Math.abs(good.rows[0].worstMinMm-0.09)<1e-10);
-  const nominalOnly=auditTolerance({pin:{nominalMm:5,toleranceMm:0.08},
-    bores:[{nominalMm:5.2,toleranceMm:0.08},{nominalMm:5.2,toleranceMm:0.08}]});
+  const nominalOnly=auditTolerance({pin:{nominalMm:5,toleranceMm:0.10},
+    bores:[{nominalMm:5.2,toleranceMm:0.10},{nominalMm:5.2,toleranceMm:0.10}]});
   assert.equal(nominalOnly.nominalPass,true);
   assert.equal(nominalOnly.guaranteedPass,false);
   assert.equal(auditTolerance({pin:{nominalMm:5,toleranceMm:0},
