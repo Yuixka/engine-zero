@@ -44,7 +44,11 @@ function auditRevoluteInterfaces(graph,{componentOptions={},pins={},groundBores=
     if(reasons.length)errors.push({jointId:j.id,reason:reasons.join('; ')});
   }
   for(const id of Object.keys(pins))if(!jointIds.has(id))errors.push({jointId:id,reason:'pin refers to unknown joint'});
-  for(const id of Object.keys(groundBores))if(!jointIds.has(id))errors.push({jointId:id,reason:'ground bore refers to unknown joint'});
+  for(const id of Object.keys(groundBores)){
+    if(!jointIds.has(id))errors.push({jointId:id,reason:'ground bore refers to unknown joint'});
+    else if(!graph.joints.some(j=>j.id===id&&(j.a==='g'||j.b==='g')))
+      errors.push({jointId:id,reason:'ground bore supplied for joint without ground endpoint'});
+  }
   return {schema:'engine-zero/revolute-interface-audit-0.1',units:'mm',
     nominalCompatible:errors.length===0,rows,errors,
     validated:['explicit pin/bore diameter presence','nominal radial clearance window','joint-to-part hole correspondence'],
