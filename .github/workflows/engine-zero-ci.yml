@@ -23,6 +23,8 @@ jobs:
         run: node components/test-parametric.js
       - name: Nominal revolute interface compatibility regression
         run: node components/test-interfaces.js
+      - name: Generated candidate nominal interface yield regression
+        run: node experiments/test-generated-interface-yield.js
       - name: Generate and verify cross-briefing
         run: |
           node scripts/handoff.js

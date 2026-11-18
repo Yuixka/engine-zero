@@ -1,0 +1,190 @@
+{
+  "date": "2026-11-18",
+  "project": "Engine Zero",
+  "source_of_truth": "https://github.com/Yuixka/engine-zero",
+  "base_main": "3d8b7be79d41",
+  "branch": "research/generated-interface-feasibility-20261118",
+  "previous_handoff": "handoffs/2026-11-17.json",
+  "change": "Reproducible generated-candidate nominal interface gate, separate kinematic/connector rejection accounting",
+  "hypothesis": "For fixed generated candidate streams, connector checks reject some kinematically valid but unrepresentable designs without hiding failures",
+  "benchmark": "node experiments/test-generated-interface-yield.js; node experiments/generated-interface-yield.js; CI full suite",
+  "prior_art": "Constraint-based CAD assembly, ISO 286 fits and DfA are established; no novelty claim",
+  "files_changed": [
+    "experiments/generated-interface-yield.js",
+    "experiments/test-generated-interface-yield.js",
+    "docs/research/2026-11-18-interface-yield.md",
+    ".github/workflows/engine-zero-ci.yml",
+    "state/PROJECT_STATE.json",
+    "CHANGELOG.md",
+    "handoffs/2026-11-18.json"
+  ],
+  "dependencies_added": [],
+  "dependencies_removed": [],
+  "regressions": "Pending GitHub CI",
+  "blockers": [
+    "Local GitHub clone failed DNS resolution; GitHub Actions required for executable evidence",
+    "No physical fixture design, 3D collision or manufacturing validation",
+    "Existing held-out benchmark contains resampled training objective; PR #4 must not be merged without correction"
+  ],
+  "workstreams": [
+    {
+      "name": "Parametric CAD Component Library",
+      "previous_changes": "2026-11-17 explicit nominal pin/bore and ground-fixture audit; main PR #8 merged",
+      "current_changes": "Consumes R-joint hole geometry and explicit pin/bore parameters; no part geometry changed",
+      "dependencies": [
+        "components/parametric.js",
+        "components/interfaces.js"
+      ],
+      "tests": "Test nominal fit via generated candidate audit",
+      "regressions": "No known changes to core optimizer; CI pending",
+      "files_changed": [
+        "experiments/generated-interface-yield.js",
+        "experiments/test-generated-interface-yield.js",
+        "docs/research/2026-11-18-interface-yield.md",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-18.json"
+      ],
+      "blockers": [
+        "No 3D solids or real fixture geometry"
+      ],
+      "next_tasks": [
+        "Add 3D interface datums and explicit fixture model"
+      ],
+      "briefed_other_workstreams": [
+        "Physics-Aware Assembly Graph",
+        "Generative Design Engine",
+        "Simulation & Verification",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Physics-Aware Assembly Graph",
+      "previous_changes": "2026-11-17 explicit nominal pin/bore and ground-fixture audit; main PR #8 merged",
+      "current_changes": "Uses graph joint anchors and family labels; rejects unsupported P/3+-anchor component bindings",
+      "dependencies": [
+        "graph-engine.js",
+        "components/interfaces.js"
+      ],
+      "tests": "Positive four-bar, negative slider and invalid pins",
+      "regressions": "No known changes to core optimizer; CI pending",
+      "files_changed": [
+        "experiments/generated-interface-yield.js",
+        "experiments/test-generated-interface-yield.js",
+        "docs/research/2026-11-18-interface-yield.md",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-18.json"
+      ],
+      "blockers": [
+        "Graph itself does not store physical connector BOM"
+      ],
+      "next_tasks": [
+        "Add typed interface references to assembly graph"
+      ],
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Generative Design Engine",
+        "Simulation & Verification",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Generative Design Engine",
+      "previous_changes": "2026-11-17 explicit nominal pin/bore and ground-fixture audit; main PR #8 merged",
+      "current_changes": "Uses seeded candidateFactory stream without changing optimizer or budget",
+      "dependencies": [
+        "discovery.js",
+        "graph-engine.js"
+      ],
+      "tests": "8-attempt deterministic regression",
+      "regressions": "No known changes to core optimizer; CI pending",
+      "files_changed": [
+        "experiments/generated-interface-yield.js",
+        "experiments/test-generated-interface-yield.js",
+        "docs/research/2026-11-18-interface-yield.md",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-18.json"
+      ],
+      "blockers": [
+        "No interface-aware selection or fair family budgets"
+      ],
+      "next_tasks": [
+        "Add equal-budget filtered selection and ancestry tracking"
+      ],
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Physics-Aware Assembly Graph",
+        "Simulation & Verification",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Simulation & Verification",
+      "previous_changes": "2026-11-17 explicit nominal pin/bore and ground-fixture audit; main PR #8 merged",
+      "current_changes": "Distinguishes 2D kinematic closure from nominal pin/bore feasibility",
+      "dependencies": [
+        "components/interfaces.js",
+        "graph-engine.js"
+      ],
+      "tests": "Positive/negative controls in new CI test",
+      "regressions": "No known changes to core optimizer; CI pending",
+      "files_changed": [
+        "experiments/generated-interface-yield.js",
+        "experiments/test-generated-interface-yield.js",
+        "docs/research/2026-11-18-interface-yield.md",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-18.json"
+      ],
+      "blockers": [
+        "No 3D clearance, stress or tolerance evidence"
+      ],
+      "next_tasks": [
+        "Independent 3D collision and tolerance checks"
+      ],
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Physics-Aware Assembly Graph",
+        "Generative Design Engine",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Autonomous Experimentation",
+      "previous_changes": "2026-11-17 explicit nominal pin/bore and ground-fixture audit; main PR #8 merged",
+      "current_changes": "Adds per-attempt evidence, exact denominators, and rejection reasons",
+      "dependencies": [
+        "experiments/generated-interface-yield.js"
+      ],
+      "tests": "Seeded reproducibility and count invariants",
+      "regressions": "No known changes to core optimizer; CI pending",
+      "files_changed": [
+        "experiments/generated-interface-yield.js",
+        "experiments/test-generated-interface-yield.js",
+        "docs/research/2026-11-18-interface-yield.md",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-18.json"
+      ],
+      "blockers": [
+        "Synthetic fixtures; only small regression sample"
+      ],
+      "next_tasks": [
+        "Run preregistered >=10 seeds x >=100 attempts, compare matched baseline"
+      ],
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Physics-Aware Assembly Graph",
+        "Generative Design Engine",
+        "Simulation & Verification"
+      ]
+    }
+  ]
+}
