@@ -15,7 +15,8 @@
     "independent R/P joint, driver and output-trajectory consistency audit with corruption tests",
     "nominal 2D parametric hub and capsule components bound to revolute graph joint anchors",
     "millimetre-scaled nominal SVG geometry and structured part JSON",
-    "experimental nominal revolute pin/bore compatibility audit with explicit ground interfaces"
+    "experimental nominal revolute pin/bore compatibility audit with explicit ground interfaces",
+    "deterministic candidate-level kinematic versus nominal-interface acceptance diagnostic with explicit failure accounting"
   ],
   "not_yet_supported": [
     "parametric 3D CAD assets",
@@ -26,7 +27,7 @@
     "patent novelty verification",
     "independent five-agent execution"
   ],
-  "next_integrated_milestone": "Propagate explicit typed pin/bore compatibility into generated candidate acceptance; add manufacturing tolerance distributions and 3D stacking verification",
-  "last_test_outcome": "2026-11-17 interface audit test pending CI; previous main CI PASS",
-  "notes": "3D CAD, manufacturing readiness, material and load properties remain unverified. Four other PRs remain draft/review; PR #4 has merge conflicts and an invalid independent held-out assumption needing correction."
+  "next_integrated_milestone": "Compare interface-aware selection to fixed-budget kinematic-only baseline across independent targets and true measured manufacturing constraints",
+  "last_test_outcome": "2026-11-18 new candidate-level diagnostic PR: GitHub CI pending; previous main CI passed",
+  "notes": "Nominal pin/bore acceptance is a synthetic screening assumption, not physical validation; no new invention claim. PR #4 has held-out target leakage and conflicts."
 }

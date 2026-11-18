@@ -29,3 +29,8 @@
 - Added explicit pin/bore and ground fixture compatibility checker with nominal radial-clearance bounds.
 - Added adversarial regression controls for missing ground bores, oversized/undersized pins and unsupported joint types.
 - Nominal geometry only; no fabrication, bearing, tolerance or load proof.
+
+## 2026-11-18 — candidate-level interface yield research
+- Added seeded post-generation gate reporting kinematic feasibility separately from representable nominal revolute connectors.
+- Added negative controls for oversized pins, absent ground bores and unsupported slider interfaces, plus CI regression.
+- Existing optimizer unchanged; no claims of improved physical feasibility, manufacturing readiness, or novelty.
