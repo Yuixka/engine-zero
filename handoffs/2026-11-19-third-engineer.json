@@ -1,0 +1,37 @@
+{
+  "date": "2026-11-19",
+  "role": "third-engineer",
+  "base_main": "6c6317df90cf117836cb7611eb13ab7a51a7b500",
+  "branch": "research/third-engineer-between-frame-risk-20261119",
+  "objective": "Expose endpoint-sampled planar collision false negatives using an independent interpolated diagnostic",
+  "previous_work": "Main #14 introduced sampled planar nonadjacent capsule overlap; 5 PM #15 proposes metamorphic segment-distance invariants; third engineer #13 remains draft Jacobian-rank audit",
+  "hypothesis": "For at least one adversarial capsule pair, both endpoint frames are clear while an interpolated midpoint overlaps",
+  "falsification": "The regression does not detect a missed endpoint collision, or independent high-resolution mechanism motion contradicts the inferred event",
+  "benchmark": "node experiments/test-between-frame-risk.js; compare 2, 16, 64 and 256 subdivisions on frozen independent mechanism traces; record misses, runtime and false positives",
+  "test_status": "NOT EXECUTED in this run; CI integration not added; must verify before merge",
+  "prior_art": "Continuous collision detection, conservative advancement, and swept-volume tests are established in robotics/graphics; this diagnostic is not novel",
+  "changes": [
+    "experiments/between-frame-risk.js",
+    "experiments/test-between-frame-risk.js",
+    "handoffs/2026-11-19-third-engineer.json"
+  ],
+  "dependencies_added": [],
+  "dependencies_removed": [],
+  "workstreams": {
+    "Parametric CAD Component Library": "Capsule/disk planar primitives used; add axial layers and real geometry later",
+    "Physics-Aware Assembly Graph": "Actual joint-constrained intermediate motion is missing; linear interpolation is not valid mechanism dynamics",
+    "Generative Design Engine": "Do not gate design candidates on this heuristic until independently benchmarked",
+    "Simulation & Verification": "New synthetic negative control for between-frame missed collision; add exact or interval-bounded motion",
+    "Autonomous Experimentation": "Run seed-controlled matched-budget comparison, report all candidates and false positives"
+  },
+  "limitations": [
+    "Interpolated endpoints are not true mechanism motion",
+    "Only 2D and sampled, no certification",
+    "Tests unverified"
+  ],
+  "next_steps": [
+    "Run node experiments/test-between-frame-risk.js and node test.js",
+    "Compare against solver-resampled actual motion and independent 2D reference",
+    "Review open PR #15 and #13 before integration"
+  ]
+}
