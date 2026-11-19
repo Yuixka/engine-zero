@@ -32,3 +32,23 @@ assert.equal(real.sampledFrames,36);
 assert(real.checkedNonadjacentPairs>=1);
 assert(real.pairs.every(p=>Number.isFinite(p.minimumPlanarGapMm)));
 console.log('planar interference risk screen PASS');
+
+// Metamorphic distance tests: rigid transforms, segment reversal and pair exchange
+// must not change geometric clearance. These catch asymmetric and coordinate bugs.
+let seed=20261119;
+const random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
+const rotate=(p,angle,dx,dy)=>[p[0]*Math.cos(angle)-p[1]*Math.sin(angle)+dx,
+  p[0]*Math.sin(angle)+p[1]*Math.cos(angle)+dy];
+for(let i=0;i<250;i++){
+  const pts=Array.from({length:4},()=>[(random()-.5)*200,(random()-.5)*200]);
+  if(i%7===0)pts[1]=pts[0].slice(); // disk/point degeneracy
+  if(i%11===0)pts[3]=pts[2].slice();
+  const [a,b,c,d]=pts,base=segmentDistance(a,b,c,d);
+  assert(Number.isFinite(base)&&base>=0,'invalid segment gap at '+i);
+  near(segmentDistance(c,d,a,b),base);
+  near(segmentDistance(b,a,c,d),base);
+  near(segmentDistance(a,b,d,c),base);
+  const angle=(random()-.5)*6,dx=(random()-.5)*1000,dy=(random()-.5)*1000;
+  const [aa,bb,cc,dd]=pts.map(p=>rotate(p,angle,dx,dy));
+  assert(Math.abs(segmentDistance(aa,bb,cc,dd)-base)<1e-8,'rigid transform mismatch '+i);
+}
