@@ -6,7 +6,7 @@ function segmentDistance(a,b,c,d){
   if(![a,b,c,d].every(finite))throw TypeError('Invalid segment endpoints');
   const ux=b[0]-a[0],uy=b[1]-a[1],vx=d[0]-c[0],vy=d[1]-c[1];
   const wx=a[0]-c[0],wy=a[1]-c[1];
-  const A=ux*ux,B=ux*vx,C=vx*vx,D=ux*wx,E=vx*wx;
+  const A=ux*ux+uy*uy,B=ux*vx+uy*vy,C=vx*vx+vy*vy,D=ux*wx+uy*wy,E=vx*wx+vy*wy;
   // Degenerate segments represent disks; evaluate endpoints robustly.
   if(A<1e-20&&C<1e-20)return Math.hypot(wx,wy);
   if(A<1e-20)return pointSegmentDistance(a,c,d);
