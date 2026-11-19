@@ -1,0 +1,189 @@
+{
+  "date": "2026-11-19",
+  "project": "Engine Zero",
+  "source_of_truth": "https://github.com/Yuixka/engine-zero",
+  "base_main": "3d8b7be79d",
+  "branch": "research/planar-swept-interference-20261119",
+  "version": "0.3.0-alpha",
+  "is_autonomous_agent_run": false,
+  "previous_handoff_date": "2026-11-17",
+  "previous_changes": "Explicit nominal R-joint pin/bore compatibility, including ground fixtures",
+  "innovation_hypothesis": "Sampled projected link overlap catches some risks missed by kinematic and pin-fit checks",
+  "prior_art": "Existing CAD collision studies and robotics collision libraries; method not novel",
+  "benchmark": "node experiments/test-planar-interference.js; future >=10 seeds, matched 120-attempt candidate budgets and independent 3D false-positive checks",
+  "files_changed": [
+    "experiments/planar-interference.js",
+    "experiments/test-planar-interference.js",
+    "docs/research/2026-11-19-planar-interference.md",
+    ".github/workflows/engine-zero-ci.yml",
+    "state/PROJECT_STATE.json",
+    "CHANGELOG.md",
+    "handoffs/2026-11-19.json"
+  ],
+  "dependencies_added": [],
+  "dependencies_removed": [],
+  "regressions": "No known regressions; GitHub CI pending",
+  "blockers": [
+    "No 3D geometry or axial layer definitions",
+    "No continuous-time collision guarantee",
+    "GitHub clone unavailable in local runtime due to DNS; GitHub Actions is validation source",
+    "PRs #2–#6 and #9–#13 require separate review"
+  ],
+  "workstreams": [
+    {
+      "name": "Parametric CAD Component Library",
+      "previous_changes": "Added independent nominal pin/bore interface audit against component holes; needs future 3D geometry and true material/fit specifications",
+      "current_changes": "Nominal capsule/disk profiles and 2D mm dimensions reused unchanged",
+      "dependencies": [
+        "components/parametric.js"
+      ],
+      "tests": "node experiments/test-planar-interference.js (CI pending)",
+      "regressions": "none known",
+      "files_changed": [
+        "experiments/planar-interference.js",
+        "experiments/test-planar-interference.js",
+        "docs/research/2026-11-19-planar-interference.md",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-19.json"
+      ],
+      "blockers": [
+        "2D projection cannot prove 3D interference"
+      ],
+      "next_tasks": [
+        "Extend profile types, then 3D axial geometry"
+      ],
+      "briefed_other_workstreams": [
+        "Physics-Aware Assembly Graph",
+        "Generative Design Engine",
+        "Simulation & Verification",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Physics-Aware Assembly Graph",
+      "previous_changes": "Graph R-joints map to typed pin diameters and explicit ground bores; no graph-engine.js change; P joints remain unsupported by component binding",
+      "current_changes": "Graph joint adjacency excludes directly connected parts; frames provide poses",
+      "dependencies": [
+        "graph-engine.js"
+      ],
+      "tests": "node experiments/test-planar-interference.js (CI pending)",
+      "regressions": "none known",
+      "files_changed": [
+        "experiments/planar-interference.js",
+        "experiments/test-planar-interference.js",
+        "docs/research/2026-11-19-planar-interference.md",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-19.json"
+      ],
+      "blockers": [
+        "2D projection cannot prove 3D interference"
+      ],
+      "next_tasks": [
+        "Specify physical layer assignment for each body"
+      ],
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Generative Design Engine",
+        "Simulation & Verification",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Generative Design Engine",
+      "previous_changes": "Generated candidate geometry unchanged; future step: reject or penalize candidates lacking valid typed interfaces, with fair search budgets",
+      "current_changes": "No candidate ranking changed; diagnostic only",
+      "dependencies": [
+        "discovery.js"
+      ],
+      "tests": "node experiments/test-planar-interference.js (CI pending)",
+      "regressions": "none known",
+      "files_changed": [
+        "experiments/planar-interference.js",
+        "experiments/test-planar-interference.js",
+        "docs/research/2026-11-19-planar-interference.md",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-19.json"
+      ],
+      "blockers": [
+        "2D projection cannot prove 3D interference"
+      ],
+      "next_tasks": [
+        "Run fair seed/budget study and integrate conservative gate only after validation"
+      ],
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Physics-Aware Assembly Graph",
+        "Simulation & Verification",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Simulation & Verification",
+      "previous_changes": "Added deterministic acceptance/rejection test for radial clearance and missing fixtures; 2D nominal checks do not prove physical safety",
+      "current_changes": "Independent segment distance and projected overlap flags, adversarial tests",
+      "dependencies": [
+        "experiments/planar-interference.js"
+      ],
+      "tests": "node experiments/test-planar-interference.js (CI pending)",
+      "regressions": "none known",
+      "files_changed": [
+        "experiments/planar-interference.js",
+        "experiments/test-planar-interference.js",
+        "docs/research/2026-11-19-planar-interference.md",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-19.json"
+      ],
+      "blockers": [
+        "2D projection cannot prove 3D interference"
+      ],
+      "next_tasks": [
+        "Add adaptive phase subdivision and 3D collision oracle"
+      ],
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Physics-Aware Assembly Graph",
+        "Generative Design Engine",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Autonomous Experimentation",
+      "previous_changes": "Falsifiable hypothesis and benchmark in docs/research/2026-11-17-interfaces.md; future experiment must measure feasible fraction across generated families and tolerance distributions",
+      "current_changes": "Pre-registered falsifiable risk-yield hypothesis and test protocol",
+      "dependencies": [
+        "experiments/test-planar-interference.js"
+      ],
+      "tests": "node experiments/test-planar-interference.js (CI pending)",
+      "regressions": "none known",
+      "files_changed": [
+        "experiments/planar-interference.js",
+        "experiments/test-planar-interference.js",
+        "docs/research/2026-11-19-planar-interference.md",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-19.json"
+      ],
+      "blockers": [
+        "2D projection cannot prove 3D interference"
+      ],
+      "next_tasks": [
+        "Run >=10 seeds and report every invalid/unavailable candidate"
+      ],
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Physics-Aware Assembly Graph",
+        "Generative Design Engine",
+        "Simulation & Verification"
+      ]
+    }
+  ]
+}

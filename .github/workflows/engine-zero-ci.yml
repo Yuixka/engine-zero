@@ -23,6 +23,8 @@ jobs:
         run: node components/test-parametric.js
       - name: Nominal revolute interface compatibility regression
         run: node components/test-interfaces.js
+      - name: Planar interference risk regression
+        run: node experiments/test-planar-interference.js
       - name: Generate and verify cross-briefing
         run: |
           node scripts/handoff.js

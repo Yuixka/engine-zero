@@ -29,3 +29,8 @@
 - Added explicit pin/bore and ground fixture compatibility checker with nominal radial-clearance bounds.
 - Added adversarial regression controls for missing ground bores, oversized/undersized pins and unsupported joint types.
 - Nominal geometry only; no fabrication, bearing, tolerance or load proof.
+
+## 2026-11-19 — research: sampled planar interference risk
+- Added independent nonadjacent moving-part capsule overlap screen using graph motion frames and nominal component geometry.
+- Added adversarial tests, CI integration and five-workstream handoff.
+- Conservative projected risk only, not proof of 3D collision or continuous clearance; no novelty claim.
