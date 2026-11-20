@@ -34,3 +34,8 @@
 - Added independent nonadjacent moving-part capsule overlap screen using graph motion frames and nominal component geometry.
 - Added adversarial tests, CI integration and five-workstream handoff.
 - Conservative projected risk only, not proof of 3D collision or continuous clearance; no novelty claim.
+
+## 2026-11-20 — research: explicit axial layer collision screening
+- Added sampled 2.5D projected-capsule + z-interval screen; requires explicit body intervals and matches component thickness.
+- Separates planar overlap from potential extruded overlap, with adversarial tests and CI.
+- No 3D collision proof, inferred layers, autonomous selection gate or novelty claim.

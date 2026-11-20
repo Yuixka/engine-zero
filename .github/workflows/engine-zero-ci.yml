@@ -25,6 +25,8 @@ jobs:
         run: node components/test-interfaces.js
       - name: Planar interference risk regression
         run: node experiments/test-planar-interference.js
+      - name: Sampled axial layer interference regression
+        run: node experiments/test-axial-layers.js
       - name: Generate and verify cross-briefing
         run: |
           node scripts/handoff.js

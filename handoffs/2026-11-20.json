@@ -1,0 +1,189 @@
+{
+  "date": "2026-11-20",
+  "project": "Engine Zero",
+  "source_of_truth": "https://github.com/Yuixka/engine-zero",
+  "base_main": "6c6317df90cf117836cb7611eb13ab7a51a7b500",
+  "branch": "research/axial-layer-screen-20261120",
+  "previous_handoff": "handoffs/2026-11-19.json",
+  "hypothesis": "Explicit z separation reduces false planar collision flags while preserving overlapping/touching projected risks",
+  "prior_art": "Existing CAD interference checking and robotics collision detection; no novelty claim",
+  "benchmark": "node experiments/test-axial-layers.js; later >=10 seeds with independent 3D collision oracle",
+  "files_changed": [
+    "experiments/axial-layers.js",
+    "experiments/test-axial-layers.js",
+    "docs/research/2026-11-20-axial-layers.md",
+    ".github/workflows/engine-zero-ci.yml",
+    "state/PROJECT_STATE.json",
+    "CHANGELOG.md",
+    "handoffs/2026-11-20.json"
+  ],
+  "dependencies_added": [],
+  "dependencies_removed": [],
+  "regressions": "Unknown pending GitHub CI",
+  "blockers": [
+    "No verified 3D geometry or real axial stacking",
+    "No continuous phase collision guarantee",
+    "Ground and adjacent connected pairs excluded",
+    "No independent 3D collision oracle"
+  ],
+  "workstreams": [
+    {
+      "name": "Parametric CAD Component Library",
+      "previous_changes": "November 19 sampled planar interference risk screen and earlier pin/bore audit",
+      "current_changes": "Reused nominal component thickness and capsule profiles; no source changes to part library",
+      "dependencies": [
+        "components/parametric.js"
+      ],
+      "tests": "node experiments/test-axial-layers.js (CI pending); existing regression suite required",
+      "regressions": "none known; pending CI",
+      "files_changed": [
+        "experiments/axial-layers.js",
+        "experiments/test-axial-layers.js",
+        "docs/research/2026-11-20-axial-layers.md",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-20.json"
+      ],
+      "blockers": [
+        "2.5D nominal geometry, not verified 3D collision"
+      ],
+      "next_tasks": [
+        "Specify real axial profiles and layer constraints"
+      ],
+      "briefed_other_workstreams": [
+        "Physics-Aware Assembly Graph",
+        "Generative Design Engine",
+        "Simulation & Verification",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Physics-Aware Assembly Graph",
+      "previous_changes": "November 19 sampled planar interference risk screen and earlier pin/bore audit",
+      "current_changes": "Requires explicit per-body z intervals and rejects missing data; no new graph joint types",
+      "dependencies": [
+        "graph-engine.js",
+        "components/parametric.js"
+      ],
+      "tests": "node experiments/test-axial-layers.js (CI pending); existing regression suite required",
+      "regressions": "none known; pending CI",
+      "files_changed": [
+        "experiments/axial-layers.js",
+        "experiments/test-axial-layers.js",
+        "docs/research/2026-11-20-axial-layers.md",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-20.json"
+      ],
+      "blockers": [
+        "2.5D nominal geometry, not verified 3D collision"
+      ],
+      "next_tasks": [
+        "Represent layer constraints in assembly graph and ground fixtures"
+      ],
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Generative Design Engine",
+        "Simulation & Verification",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Generative Design Engine",
+      "previous_changes": "November 19 sampled planar interference risk screen and earlier pin/bore audit",
+      "current_changes": "No ranking changed; new metric available only for future verification-guided search",
+      "dependencies": [
+        "discovery.js",
+        "experiments/axial-layers.js"
+      ],
+      "tests": "node experiments/test-axial-layers.js (CI pending); existing regression suite required",
+      "regressions": "none known; pending CI",
+      "files_changed": [
+        "experiments/axial-layers.js",
+        "experiments/test-axial-layers.js",
+        "docs/research/2026-11-20-axial-layers.md",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-20.json"
+      ],
+      "blockers": [
+        "2.5D nominal geometry, not verified 3D collision"
+      ],
+      "next_tasks": [
+        "Compare equal-budget generated designs with a 3D collision oracle"
+      ],
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Physics-Aware Assembly Graph",
+        "Simulation & Verification",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Simulation & Verification",
+      "previous_changes": "November 19 sampled planar interference risk screen and earlier pin/bore audit",
+      "current_changes": "Implemented sampled projected+axial overlap with adversarial fixtures; no continuous guarantee",
+      "dependencies": [
+        "experiments/planar-interference.js",
+        "experiments/axial-layers.js"
+      ],
+      "tests": "node experiments/test-axial-layers.js (CI pending); existing regression suite required",
+      "regressions": "none known; pending CI",
+      "files_changed": [
+        "experiments/axial-layers.js",
+        "experiments/test-axial-layers.js",
+        "docs/research/2026-11-20-axial-layers.md",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-20.json"
+      ],
+      "blockers": [
+        "2.5D nominal geometry, not verified 3D collision"
+      ],
+      "next_tasks": [
+        "Add independent 3D mesh collision checks and phase refinement"
+      ],
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Physics-Aware Assembly Graph",
+        "Generative Design Engine",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Autonomous Experimentation",
+      "previous_changes": "November 19 sampled planar interference risk screen and earlier pin/bore audit",
+      "current_changes": "Pre-registered synthetic pass/fail benchmark; report future 10-seed false positive and false negative rates",
+      "dependencies": [
+        "experiments/test-axial-layers.js"
+      ],
+      "tests": "node experiments/test-axial-layers.js (CI pending); existing regression suite required",
+      "regressions": "none known; pending CI",
+      "files_changed": [
+        "experiments/axial-layers.js",
+        "experiments/test-axial-layers.js",
+        "docs/research/2026-11-20-axial-layers.md",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-20.json"
+      ],
+      "blockers": [
+        "2.5D nominal geometry, not verified 3D collision"
+      ],
+      "next_tasks": [
+        "Evaluate 10 seeds, fixed candidate budgets, independent 3D oracle"
+      ],
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Physics-Aware Assembly Graph",
+        "Generative Design Engine",
+        "Simulation & Verification"
+      ]
+    }
+  ]
+}
