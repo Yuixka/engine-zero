@@ -11,7 +11,7 @@
   "innovation_hypothesis": "Explicitly classifying duplicate geometric objectives will prevent resampling controls from being reported as independent generalization evidence",
   "prior_art": "Standard ML train/test leakage audits, grouped holdout evaluation, and computational geometry trajectory comparison; classification is not a novel method",
   "benchmark": "For four existing benchmark targets, identify exactly one training resampling control and three geometrically distinct targets; detect duplicate controls, preserve baseline scoring and existing CI",
-  "test_evidence": "CI pending until GitHub Actions completes",
+  "test_evidence": "GitHub Actions PR #20 run 44949147749 PASS: all existing suites, objective-integrity regression, and generated handoff validation; merged as 8338e4c817174a3f442e8de7b9ec3e1420764579",
   "dependencies_added": [],
   "dependencies_removed": [],
   "files_changed": [
@@ -38,12 +38,12 @@
         "components/parametric.js"
       ],
       "tests": [
-        "node experiments/test-objective-integrity.js",
-        "node experiments/test-benchmark.js",
-        "node test.js",
-        "node scripts/test-handoff.js"
+        "node experiments/test-objective-integrity.js (CI PASS on PR #20)",
+        "node experiments/test-benchmark.js (CI PASS on PR #20)",
+        "node test.js (CI PASS on PR #20)",
+        "node scripts/test-handoff.js (CI PASS on PR #20)"
       ],
-      "regressions": "No known regressions; CI pending",
+      "regressions": "No regressions detected in PR CI",
       "files_changed": [
         "experiments/benchmark.js",
         "experiments/test-objective-integrity.js",
@@ -54,8 +54,7 @@
         "handoffs/2026-11-21.json"
       ],
       "blockers": [
-        "No 3D/physical verification",
-        "CI pending"
+        "No 3D/physical verification"
       ],
       "next_tasks": [
         "Add 3D CAD solids with provenance and validated dimensions"
@@ -75,12 +74,12 @@
         "graph-engine.js"
       ],
       "tests": [
-        "node experiments/test-objective-integrity.js",
-        "node experiments/test-benchmark.js",
-        "node test.js",
-        "node scripts/test-handoff.js"
+        "node experiments/test-objective-integrity.js (CI PASS on PR #20)",
+        "node experiments/test-benchmark.js (CI PASS on PR #20)",
+        "node test.js (CI PASS on PR #20)",
+        "node scripts/test-handoff.js (CI PASS on PR #20)"
       ],
-      "regressions": "No known regressions; CI pending",
+      "regressions": "No regressions detected in PR CI",
       "files_changed": [
         "experiments/benchmark.js",
         "experiments/test-objective-integrity.js",
@@ -91,8 +90,7 @@
         "handoffs/2026-11-21.json"
       ],
       "blockers": [
-        "No 3D/physical verification",
-        "CI pending"
+        "No 3D/physical verification"
       ],
       "next_tasks": [
         "Typed physical constraints and layer/clearance checks"
@@ -112,12 +110,12 @@
         "discovery.js"
       ],
       "tests": [
-        "node experiments/test-objective-integrity.js",
-        "node experiments/test-benchmark.js",
-        "node test.js",
-        "node scripts/test-handoff.js"
+        "node experiments/test-objective-integrity.js (CI PASS on PR #20)",
+        "node experiments/test-benchmark.js (CI PASS on PR #20)",
+        "node test.js (CI PASS on PR #20)",
+        "node scripts/test-handoff.js (CI PASS on PR #20)"
       ],
-      "regressions": "No known regressions; CI pending",
+      "regressions": "No regressions detected in PR CI",
       "files_changed": [
         "experiments/benchmark.js",
         "experiments/test-objective-integrity.js",
@@ -128,8 +126,7 @@
         "handoffs/2026-11-21.json"
       ],
       "blockers": [
-        "No 3D/physical verification",
-        "CI pending"
+        "No 3D/physical verification"
       ],
       "next_tasks": [
         "Fair per-family budgets and explicit generated-vs-incumbent ancestry"
@@ -149,12 +146,12 @@
         "experiments/benchmark.js"
       ],
       "tests": [
-        "node experiments/test-objective-integrity.js",
-        "node experiments/test-benchmark.js",
-        "node test.js",
-        "node scripts/test-handoff.js"
+        "node experiments/test-objective-integrity.js (CI PASS on PR #20)",
+        "node experiments/test-benchmark.js (CI PASS on PR #20)",
+        "node test.js (CI PASS on PR #20)",
+        "node scripts/test-handoff.js (CI PASS on PR #20)"
       ],
-      "regressions": "No known regressions; CI pending",
+      "regressions": "No regressions detected in PR CI",
       "files_changed": [
         "experiments/benchmark.js",
         "experiments/test-objective-integrity.js",
@@ -165,8 +162,7 @@
         "handoffs/2026-11-21.json"
       ],
       "blockers": [
-        "No 3D/physical verification",
-        "CI pending"
+        "No 3D/physical verification"
       ],
       "next_tasks": [
         "Independent external targets and physical clearance oracle"
@@ -186,12 +182,12 @@
         "experiments/test-objective-integrity.js"
       ],
       "tests": [
-        "node experiments/test-objective-integrity.js",
-        "node experiments/test-benchmark.js",
-        "node test.js",
-        "node scripts/test-handoff.js"
+        "node experiments/test-objective-integrity.js (CI PASS on PR #20)",
+        "node experiments/test-benchmark.js (CI PASS on PR #20)",
+        "node test.js (CI PASS on PR #20)",
+        "node scripts/test-handoff.js (CI PASS on PR #20)"
       ],
-      "regressions": "No known regressions; CI pending",
+      "regressions": "No regressions detected in PR CI",
       "files_changed": [
         "experiments/benchmark.js",
         "experiments/test-objective-integrity.js",
@@ -202,8 +198,7 @@
         "handoffs/2026-11-21.json"
       ],
       "blockers": [
-        "No 3D/physical verification",
-        "CI pending"
+        "No 3D/physical verification"
       ],
       "next_tasks": [
         "Pre-register external targets and matched-budget >=10 seed experiment"
@@ -215,5 +210,8 @@
         "Simulation & Verification"
       ]
     }
-  ]
+  ],
+  "merged_pr": 20,
+  "merge_commit": "8338e4c817174a3f442e8de7b9ec3e1420764579",
+  "ci_url": "https://github.com/Yuixka/engine-zero/actions/runs/44949147749"
 }

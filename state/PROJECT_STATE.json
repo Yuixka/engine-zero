@@ -29,6 +29,6 @@
     "independent five-agent execution"
   ],
   "next_integrated_milestone": "Resolve misleading benchmark labels, then evaluate fair matched-budget generated designs with 3D clearance oracle",
-  "last_test_outcome": "2026-11-21 PR test pending: new objective-integrity regression; baseline main at 6c6317df",
+  "last_test_outcome": "2026-11-21 PR #20 CI PASS (run 44949147749); merged main as 8338e4c817174a3f442e8de7b9ec3e1420764579; post-merge CI pending",
   "notes": "Objective distinction is based on phase-aligned 2D synthetic geometry; does not prove statistical independence, 3D feasibility, or novelty."
 }
