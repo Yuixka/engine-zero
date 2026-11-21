@@ -16,7 +16,8 @@
     "nominal 2D parametric hub and capsule components bound to revolute graph joint anchors",
     "millimetre-scaled nominal SVG geometry and structured part JSON",
     "experimental nominal revolute pin/bore compatibility audit with explicit ground interfaces",
-    "sampled nominal 2D projected interference risk diagnostic for nonadjacent moving components"
+    "sampled nominal 2D projected interference risk diagnostic for nonadjacent moving components",
+    "benchmark target-shape independence audit separating resampling controls from distinct objectives"
   ],
   "not_yet_supported": [
     "parametric 3D CAD assets",
@@ -27,7 +28,7 @@
     "patent novelty verification",
     "independent five-agent execution"
   ],
-  "next_integrated_milestone": "Benchmark projected interference on preregistered generated designs and cross-check with 3D axial stacking before acceptance gating",
-  "last_test_outcome": "2026-11-19 PR CI pending; main baseline reviewed, local Git clone blocked by DNS",
-  "notes": "3D CAD, manufacturing readiness, material and load properties remain unverified. Four other PRs remain draft/review; PR #4 has merge conflicts and an invalid independent held-out assumption needing correction."
+  "next_integrated_milestone": "Resolve misleading benchmark labels, then evaluate fair matched-budget generated designs with 3D clearance oracle",
+  "last_test_outcome": "2026-11-21 PR test pending: new objective-integrity regression; baseline main at 6c6317df",
+  "notes": "Objective distinction is based on phase-aligned 2D synthetic geometry; does not prove statistical independence, 3D feasibility, or novelty."
 }
