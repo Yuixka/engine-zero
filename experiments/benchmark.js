@@ -27,6 +27,7 @@ const round = (v) => Number.isFinite(v) ? Number(v.toFixed(6)) : null;
  * Translation-invariant, phase-aligned RMS in millimetres; no phase reoptimization.
  */
 function objectiveShapeDistance(a,b,n=192){
+  if(!Number.isSafeInteger(n)||n<2||n>100000)throw new RangeError('Objective sample count must be an integer in 2..100000');
   const A=K.targetPath({...a,n}),B=K.targetPath({...b,n});
   if(A.length!==n||B.length!==n)throw Error('Unexpected target length');
   const coords=arr=>arr.map(p=>Array.isArray(p)?p:[p.x,p.y]);
