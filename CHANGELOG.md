@@ -34,3 +34,8 @@
 - Added independent nonadjacent moving-part capsule overlap screen using graph motion frames and nominal component geometry.
 - Added adversarial tests, CI integration and five-workstream handoff.
 - Conservative projected risk only, not proof of 3D collision or continuous clearance; no novelty claim.
+
+## 2026-11-21 — benchmark objective-integrity gate (research PR)
+- Added geometry-based independent-objective classification to held-out benchmark output; identical higher-resolution training target is now explicitly a resampling control, not independent evidence.
+- Added deterministic regression and CI hook; no changes to design optimization or benchmark scoring.
+- Synthetic 2D geometry only; target distinctness is not statistical independence or invention evidence.

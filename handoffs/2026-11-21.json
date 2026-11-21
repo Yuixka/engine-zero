@@ -1,0 +1,219 @@
+{
+  "date": "2026-11-21",
+  "project": "Engine Zero",
+  "source_of_truth": "https://github.com/Yuixka/engine-zero",
+  "base_main": "6c6317df90cf117836cb7611eb13ab7a51a7b500",
+  "branch": "research/benchmark-independence-gate-20261121",
+  "version": "0.3.0-alpha",
+  "is_autonomous_agent_run": false,
+  "previous_handoff": "handoffs/2026-11-19.json",
+  "previous_changes": "sampled planar projected interference risk; PR #17 axial layering remains unmerged",
+  "innovation_hypothesis": "Explicitly classifying duplicate geometric objectives will prevent resampling controls from being reported as independent generalization evidence",
+  "prior_art": "Standard ML train/test leakage audits, grouped holdout evaluation, and computational geometry trajectory comparison; classification is not a novel method",
+  "benchmark": "For four existing benchmark targets, identify exactly one training resampling control and three geometrically distinct targets; detect duplicate controls, preserve baseline scoring and existing CI",
+  "test_evidence": "CI pending until GitHub Actions completes",
+  "dependencies_added": [],
+  "dependencies_removed": [],
+  "files_changed": [
+    "experiments/benchmark.js",
+    "experiments/test-objective-integrity.js",
+    ".github/workflows/engine-zero-ci.yml",
+    "docs/research/2026-11-21-objective-integrity.md",
+    "state/PROJECT_STATE.json",
+    "CHANGELOG.md",
+    "handoffs/2026-11-21.json"
+  ],
+  "blockers": [
+    "No external physical target dataset",
+    "No independently validated 3D collision oracle",
+    "Synthetic distinct objectives do not establish statistical independence",
+    "Other open PRs may require rebase"
+  ],
+  "workstreams": [
+    {
+      "name": "Parametric CAD Component Library",
+      "previous_changes": "No component geometry changed; earlier pin/bore and planar-interference tests remain required",
+      "current_changes": "No core modifications",
+      "dependencies": [
+        "components/parametric.js"
+      ],
+      "tests": [
+        "node experiments/test-objective-integrity.js",
+        "node experiments/test-benchmark.js",
+        "node test.js",
+        "node scripts/test-handoff.js"
+      ],
+      "regressions": "No known regressions; CI pending",
+      "files_changed": [
+        "experiments/benchmark.js",
+        "experiments/test-objective-integrity.js",
+        ".github/workflows/engine-zero-ci.yml",
+        "docs/research/2026-11-21-objective-integrity.md",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-21.json"
+      ],
+      "blockers": [
+        "No 3D/physical verification",
+        "CI pending"
+      ],
+      "next_tasks": [
+        "Add 3D CAD solids with provenance and validated dimensions"
+      ],
+      "briefed_other_workstreams": [
+        "Physics-Aware Assembly Graph",
+        "Generative Design Engine",
+        "Simulation & Verification",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Physics-Aware Assembly Graph",
+      "previous_changes": "Graph engine untouched; no new connector assumptions",
+      "current_changes": "No core modifications",
+      "dependencies": [
+        "graph-engine.js"
+      ],
+      "tests": [
+        "node experiments/test-objective-integrity.js",
+        "node experiments/test-benchmark.js",
+        "node test.js",
+        "node scripts/test-handoff.js"
+      ],
+      "regressions": "No known regressions; CI pending",
+      "files_changed": [
+        "experiments/benchmark.js",
+        "experiments/test-objective-integrity.js",
+        ".github/workflows/engine-zero-ci.yml",
+        "docs/research/2026-11-21-objective-integrity.md",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-21.json"
+      ],
+      "blockers": [
+        "No 3D/physical verification",
+        "CI pending"
+      ],
+      "next_tasks": [
+        "Typed physical constraints and layer/clearance checks"
+      ],
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Generative Design Engine",
+        "Simulation & Verification",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Generative Design Engine",
+      "previous_changes": "Search and selection unchanged; benchmark champion ancestry remains a confounder",
+      "current_changes": "No core modifications",
+      "dependencies": [
+        "discovery.js"
+      ],
+      "tests": [
+        "node experiments/test-objective-integrity.js",
+        "node experiments/test-benchmark.js",
+        "node test.js",
+        "node scripts/test-handoff.js"
+      ],
+      "regressions": "No known regressions; CI pending",
+      "files_changed": [
+        "experiments/benchmark.js",
+        "experiments/test-objective-integrity.js",
+        ".github/workflows/engine-zero-ci.yml",
+        "docs/research/2026-11-21-objective-integrity.md",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-21.json"
+      ],
+      "blockers": [
+        "No 3D/physical verification",
+        "CI pending"
+      ],
+      "next_tasks": [
+        "Fair per-family budgets and explicit generated-vs-incumbent ancestry"
+      ],
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Physics-Aware Assembly Graph",
+        "Simulation & Verification",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Simulation & Verification",
+      "previous_changes": "Geometric shape audit distinguishes dense training resampling from novel targets",
+      "current_changes": "Objective-integrity classification integrated with benchmark",
+      "dependencies": [
+        "experiments/benchmark.js"
+      ],
+      "tests": [
+        "node experiments/test-objective-integrity.js",
+        "node experiments/test-benchmark.js",
+        "node test.js",
+        "node scripts/test-handoff.js"
+      ],
+      "regressions": "No known regressions; CI pending",
+      "files_changed": [
+        "experiments/benchmark.js",
+        "experiments/test-objective-integrity.js",
+        ".github/workflows/engine-zero-ci.yml",
+        "docs/research/2026-11-21-objective-integrity.md",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-21.json"
+      ],
+      "blockers": [
+        "No 3D/physical verification",
+        "CI pending"
+      ],
+      "next_tasks": [
+        "Independent external targets and physical clearance oracle"
+      ],
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Physics-Aware Assembly Graph",
+        "Generative Design Engine",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Autonomous Experimentation",
+      "previous_changes": "Benchmark report now counts truly distinct objectives separately from controls",
+      "current_changes": "Objective-integrity classification integrated with benchmark",
+      "dependencies": [
+        "experiments/test-objective-integrity.js"
+      ],
+      "tests": [
+        "node experiments/test-objective-integrity.js",
+        "node experiments/test-benchmark.js",
+        "node test.js",
+        "node scripts/test-handoff.js"
+      ],
+      "regressions": "No known regressions; CI pending",
+      "files_changed": [
+        "experiments/benchmark.js",
+        "experiments/test-objective-integrity.js",
+        ".github/workflows/engine-zero-ci.yml",
+        "docs/research/2026-11-21-objective-integrity.md",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-21.json"
+      ],
+      "blockers": [
+        "No 3D/physical verification",
+        "CI pending"
+      ],
+      "next_tasks": [
+        "Pre-register external targets and matched-budget >=10 seed experiment"
+      ],
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Physics-Aware Assembly Graph",
+        "Generative Design Engine",
+        "Simulation & Verification"
+      ]
+    }
+  ]
+}
