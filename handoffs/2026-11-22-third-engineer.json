@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-22",
+  "role": "third engineer",
+  "base_main": "93b27f8f324fa6c855c6d9d2c847c39950a7d8b1",
+  "branch": "research/paired-verification-evidence-20261122",
+  "innovation_hypothesis": "At matched per-task/per-seed budgets, verification gating improves independently verified yield relative to nominal-only generation.",
+  "work_completed": [
+    "Added dependency-free paired binary-outcome evidence audit",
+    "Added deterministic synthetic regression fixtures",
+    "Documented preregistered evaluation protocol and disproof conditions"
+  ],
+  "test_evidence": "Tests not executed in this run; node experiments/test-paired-verification-audit.js required; no mechanism benchmark results",
+  "prior_art": "McNemar exact paired tests and verification-gated optimization are established prior art",
+  "blockers": [
+    "Independent 3D/tolerance oracle absent",
+    "No external physical validation",
+    "Grouped objective-family uncertainty not implemented"
+  ],
+  "five_systems": {
+    "cad": "Supply part dimensions, layer and tolerance provenance",
+    "assembly": "Export consistent joint frames and units",
+    "generative": "Record matched task/seed/evaluation budgets",
+    "verification": "Supply independent reference oracle with unknown status",
+    "experimentation": "Preregister 25 held-out objectives x 20 seeds and report grouped uncertainty"
+  },
+  "next_experiment": "Implement one independently checked between-frame collision fixture and feed verified paired outcomes to audit; validate on CI before merge",
+  "do_not_merge_without_review": true
+}
