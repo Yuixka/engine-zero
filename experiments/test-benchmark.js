@@ -6,6 +6,8 @@ const B=benchmark({seed:716,budget:24,depth:2});
 assert.deepEqual(A,B,'seeded benchmark must be byte-for-byte deterministic');
 assert(A.discovery.valid>0);
 assert(A.training_champions.some(c=>c.family==='4R'));
+assert(A.training_champions.every(c=>['generated-root','incumbent-derived','imported-derived'].includes(c.ancestry)));
+assert.equal(Object.values(A.discovery.champion_ancestry_counts).reduce((a,b)=>a+b,0),A.training_champions.length);
 assert.equal(A.held_out.length,HELD_OUT.length);
 for(const test of A.held_out){
   assert(test.best_fit_crank_baseline_rms_mm>=0);

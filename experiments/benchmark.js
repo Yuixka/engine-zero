@@ -76,7 +76,7 @@ function benchmark({seed=716,budget=120,depth=2}={}) {
     family:c.graph.family,
     bodies:c.graph.bodies.length,
     joints:c.graph.joints.length,
-    design_source:c.origin,
+    design_source:c.origin,ancestry:c.ancestry,
     training:{rms_mm:round(c.fitness.rms),score_mm:round(c.fitness.score)},
     serialized_graph:G.stripGraph(c.graph)
   })).sort((a,b)=>a.family.localeCompare(b.family));
@@ -100,11 +100,13 @@ function benchmark({seed=716,budget=120,depth=2}={}) {
       limitations:['All objectives synthetic, not measured','Translation-only output alignment (phase and rotation are fixed)',
       'No component library, stress, torque, collision, fabrication, or novelty validation',
       'Original four-bar incumbent is hardcoded, not discovered in this run',
+      'Ancestry flags inheritance from the hardcoded incumbent but not independent originality or novelty',
       'No claim of statistically representative generalization',
       'Independent joint/driver/output geometry audit uses sampled solver poses, not external ground truth']},
     objective_integrity:{independent_objectives:integrity.independent_objectives,controls:integrity.controls,definition:integrity.definition},
     discovery:{attempts:s.attempts,valid:s.feasible,failed:s.failed,distinct_family_champions:champions.length,
       distinct_labeled_wiring_patterns:s.uniqueWiringPatterns,
+      champion_ancestry_counts:champions.reduce((acc,c)=>(acc[c.ancestry]=(acc[c.ancestry]||0)+1,acc),{}),
       training_best_family:s.best?.graph.family??null,training_best_rms_mm:round(s.best?.fitness.rms)},
     training_champions:champions.map(({serialized_graph,...rest})=>rest),
     held_out:targetRows};

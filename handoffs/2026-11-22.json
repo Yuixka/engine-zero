@@ -1,0 +1,193 @@
+{
+  "date": "2026-11-22",
+  "project": "Engine Zero",
+  "source_of_truth": "https://github.com/Yuixka/engine-zero",
+  "base_main": "93b27f8f324fa6c855c6d9d2c847c39950a7d8b1",
+  "branch": "research/ancestry-accounting-20261122",
+  "previous_handoff": "handoffs/2026-11-21.json",
+  "is_autonomous_agent_run": false,
+  "innovation_hypothesis": "Propagating root ancestry through mutations prevents hardcoded incumbent descendants from being miscounted as independently generated mechanisms",
+  "prior_art": "Data provenance and training/test leakage audits are established methods; not new CAD or physics",
+  "benchmark": "Every benchmark champion has an explicit ancestry; ancestry counts equal champion count; fixed-seed replay yields identical provenance; imported and incumbent roots are distinguishable",
+  "test_evidence": "PENDING GitHub Actions; previous main tests green",
+  "dependencies_added": [],
+  "dependencies_removed": [],
+  "files_changed": [
+    "discovery.js",
+    "experiments/benchmark.js",
+    "experiments/test-benchmark.js",
+    "experiments/test-ancestry.js",
+    ".github/workflows/engine-zero-ci.yml",
+    "state/PROJECT_STATE.json",
+    "CHANGELOG.md",
+    "docs/research/2026-11-22-ancestry.md",
+    "handoffs/2026-11-22.json"
+  ],
+  "blockers": [
+    "No external target dataset",
+    "No physical/3D validation",
+    "Search budget fairness and novelty remain unproven"
+  ],
+  "workstreams": [
+    {
+      "name": "Parametric CAD Component Library",
+      "previous_changes": "Nominal 2D parts and pin/bore interfaces unchanged",
+      "current_changes": "No component geometry changes; consumes provenance metadata downstream",
+      "dependencies": "components/parametric.js",
+      "tests": [
+        "node test.js",
+        "node experiments/test-benchmark.js",
+        "node experiments/test-ancestry.js",
+        "node scripts/test-handoff.js"
+      ],
+      "regressions": "Pending CI; no known breakages",
+      "files_changed": [
+        "discovery.js",
+        "experiments/benchmark.js",
+        "experiments/test-benchmark.js",
+        "experiments/test-ancestry.js",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "docs/research/2026-11-22-ancestry.md",
+        "handoffs/2026-11-22.json"
+      ],
+      "blockers": "No 3D solids",
+      "next_tasks": "3D geometry provenance",
+      "briefed_other_workstreams": [
+        "Physics-Aware Assembly Graph",
+        "Generative Design Engine",
+        "Simulation & Verification",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Physics-Aware Assembly Graph",
+      "previous_changes": "2D graph joints unchanged",
+      "current_changes": "No graph mobility changes; ancestry applies to graph candidate records",
+      "dependencies": "graph-engine.js",
+      "tests": [
+        "node test.js",
+        "node experiments/test-benchmark.js",
+        "node experiments/test-ancestry.js",
+        "node scripts/test-handoff.js"
+      ],
+      "regressions": "Pending CI; no known breakages",
+      "files_changed": [
+        "discovery.js",
+        "experiments/benchmark.js",
+        "experiments/test-benchmark.js",
+        "experiments/test-ancestry.js",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "docs/research/2026-11-22-ancestry.md",
+        "handoffs/2026-11-22.json"
+      ],
+      "blockers": "No physical connector validation",
+      "next_tasks": "Physical constraints on graph edges",
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Generative Design Engine",
+        "Simulation & Verification",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Generative Design Engine",
+      "previous_changes": "Hardcoded four-bar incumbent previously seeded search without lineage propagation",
+      "current_changes": "Propagate root provenance through mutation and import; track incumbent inheritance",
+      "dependencies": "discovery.js",
+      "tests": [
+        "node test.js",
+        "node experiments/test-benchmark.js",
+        "node experiments/test-ancestry.js",
+        "node scripts/test-handoff.js"
+      ],
+      "regressions": "Pending CI; no known breakages",
+      "files_changed": [
+        "discovery.js",
+        "experiments/benchmark.js",
+        "experiments/test-benchmark.js",
+        "experiments/test-ancestry.js",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "docs/research/2026-11-22-ancestry.md",
+        "handoffs/2026-11-22.json"
+      ],
+      "blockers": "No independent novel topology proof",
+      "next_tasks": "Fair generated-only search budget",
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Physics-Aware Assembly Graph",
+        "Simulation & Verification",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Simulation & Verification",
+      "previous_changes": "Independent geometry and sampled planar interference checks unchanged",
+      "current_changes": "Add deterministic provenance assertions, preserve existing regression",
+      "dependencies": "experiments/benchmark.js",
+      "tests": [
+        "node test.js",
+        "node experiments/test-benchmark.js",
+        "node experiments/test-ancestry.js",
+        "node scripts/test-handoff.js"
+      ],
+      "regressions": "Pending CI; no known breakages",
+      "files_changed": [
+        "discovery.js",
+        "experiments/benchmark.js",
+        "experiments/test-benchmark.js",
+        "experiments/test-ancestry.js",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "docs/research/2026-11-22-ancestry.md",
+        "handoffs/2026-11-22.json"
+      ],
+      "blockers": "No external physics solver",
+      "next_tasks": "Independent clearance and dynamics oracle",
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Physics-Aware Assembly Graph",
+        "Generative Design Engine",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Autonomous Experimentation",
+      "previous_changes": "Training objective resampling now correctly flagged by prior work",
+      "current_changes": "Benchmark reports ancestry and counts alongside held-out results",
+      "dependencies": "experiments/test-ancestry.js",
+      "tests": [
+        "node test.js",
+        "node experiments/test-benchmark.js",
+        "node experiments/test-ancestry.js",
+        "node scripts/test-handoff.js"
+      ],
+      "regressions": "Pending CI; no known breakages",
+      "files_changed": [
+        "discovery.js",
+        "experiments/benchmark.js",
+        "experiments/test-benchmark.js",
+        "experiments/test-ancestry.js",
+        ".github/workflows/engine-zero-ci.yml",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "docs/research/2026-11-22-ancestry.md",
+        "handoffs/2026-11-22.json"
+      ],
+      "blockers": "No independent measured targets",
+      "next_tasks": "Matched-budget external benchmark",
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Physics-Aware Assembly Graph",
+        "Generative Design Engine",
+        "Simulation & Verification"
+      ]
+    }
+  ]
+}

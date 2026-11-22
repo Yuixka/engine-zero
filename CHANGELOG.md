@@ -39,3 +39,8 @@
 - Added geometry-based independent-objective classification to held-out benchmark output; identical higher-resolution training target is now explicitly a resampling control, not independent evidence.
 - Added deterministic regression and CI hook; no changes to design optimization or benchmark scoring.
 - Synthetic 2D geometry only; target distinctness is not statistical independence or invention evidence.
+
+## 2026-11-22 — candidate ancestry audit (research PR)
+- Propagate root-source provenance through search mutations; incumbent-derived candidates are no longer mislabeled as independent generated roots.
+- Add ancestry counts to benchmark champions and deterministic regression; no optimization or physics change.
+- Prior-art: provenance tracking and leakage audits are established; no novelty claim.
