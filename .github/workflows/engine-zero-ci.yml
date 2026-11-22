@@ -27,6 +27,8 @@ jobs:
         run: node experiments/test-planar-interference.js
       - name: Benchmark objective independence regression
         run: node experiments/test-objective-integrity.js
+      - name: Candidate ancestry provenance regression
+        run: node experiments/test-ancestry.js
       - name: Generate and verify cross-briefing
         run: |
           node scripts/handoff.js

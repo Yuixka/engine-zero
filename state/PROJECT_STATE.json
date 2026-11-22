@@ -17,7 +17,8 @@
     "millimetre-scaled nominal SVG geometry and structured part JSON",
     "experimental nominal revolute pin/bore compatibility audit with explicit ground interfaces",
     "sampled nominal 2D projected interference risk diagnostic for nonadjacent moving components",
-    "benchmark target-shape independence audit separating resampling controls from distinct objectives"
+    "benchmark target-shape independence audit separating resampling controls from distinct objectives",
+    "explicit inherited-incumbent versus generated-root ancestry tracking for candidate and benchmark champions"
   ],
   "not_yet_supported": [
     "parametric 3D CAD assets",
@@ -28,7 +29,7 @@
     "patent novelty verification",
     "independent five-agent execution"
   ],
-  "next_integrated_milestone": "Resolve misleading benchmark labels, then evaluate fair matched-budget generated designs with 3D clearance oracle",
-  "last_test_outcome": "2026-11-21 PR #20 CI PASS (run 44949147749); merged main as 8338e4c817174a3f442e8de7b9ec3e1420764579; post-merge CI pending",
-  "notes": "Objective distinction is based on phase-aligned 2D synthetic geometry; does not prove statistical independence, 3D feasibility, or novelty."
+  "next_integrated_milestone": "Matched-budget, incumbent-free design evaluation with externally independent targets and physical clearance oracle",
+  "last_test_outcome": "Ancestry PR tests pending CI; previous main regression baseline 2026-11-21",
+  "notes": "Candidate ancestry is propagated through mutations, not a proof of topology originality; generated-root may still reproduce known prior art."
 }

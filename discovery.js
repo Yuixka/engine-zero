@@ -55,13 +55,14 @@ function createSession(brief={},opts={}){
   const archive=[],champions=new Map(),recent=[],wiringSignatures=new Set();
   let count=0,failed=0,best=null,imported=0;
   const baseline=K.crankBaseline(target);
-  function evaluate(g,origin='generated'){
+  function evaluate(g,origin='generated',ancestry='generated-root'){
+    if(!['generated-root','incumbent-derived','imported-derived'].includes(ancestry))throw Error('Invalid candidate ancestry');
     count++;
     const trace=G.motion(g,target.length);
     if(!trace.ok){failed++;return {ok:false,reason:trace.reason};}
     const fitness=G.score(g,trace,target);
     wiringSignatures.add(g.joints.map(j=>[j.a,j.b].sort().join(':')+':'+j.type).sort().join('|'));
-    const candidate={graph:g,trace,fitness,origin,attempt:count};
+    const candidate={graph:g,trace,fitness,origin,ancestry,attempt:count};
     recent.unshift({family:g.family,rms:fitness.rms,score:fitness.score,attempt:count});if(recent.length>40)recent.pop();
     const former=champions.get(g.family);
     if(!former||candidate.fitness.score<former.fitness.score)champions.set(g.family,candidate);
@@ -71,24 +72,25 @@ function createSession(brief={},opts={}){
     return {ok:true,candidate};
   }
   // This prior numerical result is an incumbent, not a novel or withheld design.
-  evaluate(G.fromLegacyFourbar(BEST_LEGACY),'prior four-bar incumbent');
+  evaluate(G.fromLegacyFourbar(BEST_LEGACY),'prior four-bar incumbent','incumbent-derived');
   function step(batch=10){
     for(let i=0;i<batch;i++){
-      let g=null;
+      let g=null,ancestry='generated-root';
       if(rand()<.29||!archive.length)g=G.candidateFactory(rand,K,depth);
       else{
         let parent;
         if(champions.size>1&&rand()<.52)parent=[...champions.values()][Math.floor(rand()*champions.size)];
         else parent=archive[Math.floor(Math.pow(rand(),1.5)*archive.length)];
         g=mutate(parent.graph,rand,depth);
+        ancestry=parent.ancestry;
       }
-      if(g)evaluate(g);
+      if(g)evaluate(g,'generated',ancestry);
       else{count++;failed++;}
     }
     return summary();
   }
   function addGraph(graph){
-    const g=G.restoreGraph(graph);const result=evaluate(g,'imported design');if(result.ok)imported++;
+    const g=G.restoreGraph(graph);const result=evaluate(g,'imported design','imported-derived');if(result.ok)imported++;
     return result;
   }
   function summary(){return {attempts:count,feasible:count-failed,failed,best,baseline,champions:[...champions.values()].sort((a,b)=>a.fitness.score-b.fitness.score),recent,repertoire:champions.size,uniqueWiringPatterns:wiringSignatures.size,imported};}
