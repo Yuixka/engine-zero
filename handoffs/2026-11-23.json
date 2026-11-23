@@ -1,0 +1,218 @@
+{
+  "date": "2026-11-23",
+  "project": "Engine Zero",
+  "source_of_truth": "https://github.com/Yuixka/engine-zero",
+  "base_main": "93b27f8f324fa6c855c6d9d2c847c39950a7d8b1",
+  "branch": "research/phase-clearance-convergence-20261123",
+  "version": "0.3.0-alpha-research",
+  "is_autonomous_agent_run": false,
+  "previous_handoff": "handoffs/2026-11-21.json",
+  "previous_changes": "Objective-shape independence audit merged; latest main contains sampled planar interference and pin/bore checks",
+  "innovation_hypothesis": "Finer phase sampling may reveal nominal 2D projected interference or solver failure hidden by coarse sampling",
+  "prior_art": "Standard mesh/time-step convergence and computational geometry; no verified invention novelty",
+  "benchmark": "36/72/144/288 sampled phases; per-level valid/invalid and minimum gap, coarse-pass/fine-fail; >=10 preregistered seeds required for scientific claim",
+  "test_evidence": "Pending GitHub Actions PR CI; deterministic Node regression included, no local execution claimed",
+  "dependencies_added": [],
+  "dependencies_removed": [],
+  "files_changed": [
+    "experiments/phase-clearance-convergence.js",
+    "experiments/test-phase-clearance-convergence.js",
+    ".github/workflows/engine-zero-ci.yml",
+    "docs/research/2026-11-23-phase-clearance.md",
+    "state/PROJECT_STATE.json",
+    "CHANGELOG.md",
+    "handoffs/2026-11-23.json"
+  ],
+  "blockers": [
+    "No independent continuous-time or 3D collision oracle",
+    "No physical tolerances or material properties",
+    "No validated external trajectory corpus"
+  ],
+  "workstreams": [
+    {
+      "name": "Parametric CAD Component Library",
+      "previous_changes": "Reviewed main v0.3.0-alpha and previous objective-integrity handoff",
+      "current_changes": "Reviewed integration and interface assumptions",
+      "dependencies": [
+        "graph-engine.js",
+        "components/parametric.js",
+        "experiments/planar-interference.js"
+      ],
+      "tests": [
+        "node experiments/test-phase-clearance-convergence.js (CI pending)",
+        "node test.js (CI pending)",
+        "node scripts/test-handoff.js (CI pending)"
+      ],
+      "regressions": "No confirmed regression; pending CI",
+      "files_changed": [
+        "experiments/phase-clearance-convergence.js",
+        "experiments/test-phase-clearance-convergence.js",
+        ".github/workflows/engine-zero-ci.yml",
+        "docs/research/2026-11-23-phase-clearance.md",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-23.json"
+      ],
+      "blockers": [
+        "Continuous/3D clearance not certified"
+      ],
+      "next_tasks": [
+        "Add independent 3D solids with explicit dimensions"
+      ],
+      "briefed_other_workstreams": [
+        "Physics-Aware Assembly Graph",
+        "Generative Design Engine",
+        "Simulation & Verification",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Physics-Aware Assembly Graph",
+      "previous_changes": "Reviewed main v0.3.0-alpha and previous objective-integrity handoff",
+      "current_changes": "Reviewed integration and interface assumptions",
+      "dependencies": [
+        "graph-engine.js",
+        "components/parametric.js",
+        "experiments/planar-interference.js"
+      ],
+      "tests": [
+        "node experiments/test-phase-clearance-convergence.js (CI pending)",
+        "node test.js (CI pending)",
+        "node scripts/test-handoff.js (CI pending)"
+      ],
+      "regressions": "No confirmed regression; pending CI",
+      "files_changed": [
+        "experiments/phase-clearance-convergence.js",
+        "experiments/test-phase-clearance-convergence.js",
+        ".github/workflows/engine-zero-ci.yml",
+        "docs/research/2026-11-23-phase-clearance.md",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-23.json"
+      ],
+      "blockers": [
+        "Continuous/3D clearance not certified"
+      ],
+      "next_tasks": [
+        "Add axial layer and ground interface semantics"
+      ],
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Generative Design Engine",
+        "Simulation & Verification",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Generative Design Engine",
+      "previous_changes": "Reviewed main v0.3.0-alpha and previous objective-integrity handoff",
+      "current_changes": "Reviewed integration and interface assumptions",
+      "dependencies": [
+        "graph-engine.js",
+        "components/parametric.js",
+        "experiments/planar-interference.js"
+      ],
+      "tests": [
+        "node experiments/test-phase-clearance-convergence.js (CI pending)",
+        "node test.js (CI pending)",
+        "node scripts/test-handoff.js (CI pending)"
+      ],
+      "regressions": "No confirmed regression; pending CI",
+      "files_changed": [
+        "experiments/phase-clearance-convergence.js",
+        "experiments/test-phase-clearance-convergence.js",
+        ".github/workflows/engine-zero-ci.yml",
+        "docs/research/2026-11-23-phase-clearance.md",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-23.json"
+      ],
+      "blockers": [
+        "Continuous/3D clearance not certified"
+      ],
+      "next_tasks": [
+        "Benchmark ranking sensitivity to clearance uncertainty"
+      ],
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Physics-Aware Assembly Graph",
+        "Simulation & Verification",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Simulation & Verification",
+      "previous_changes": "Reviewed main v0.3.0-alpha and previous objective-integrity handoff",
+      "current_changes": "Added phase-resolution interference diagnostic",
+      "dependencies": [
+        "graph-engine.js",
+        "components/parametric.js",
+        "experiments/planar-interference.js"
+      ],
+      "tests": [
+        "node experiments/test-phase-clearance-convergence.js (CI pending)",
+        "node test.js (CI pending)",
+        "node scripts/test-handoff.js (CI pending)"
+      ],
+      "regressions": "No confirmed regression; pending CI",
+      "files_changed": [
+        "experiments/phase-clearance-convergence.js",
+        "experiments/test-phase-clearance-convergence.js",
+        ".github/workflows/engine-zero-ci.yml",
+        "docs/research/2026-11-23-phase-clearance.md",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-23.json"
+      ],
+      "blockers": [
+        "Continuous/3D clearance not certified"
+      ],
+      "next_tasks": [
+        "Cross-check narrow phase events with continuous geometry oracle"
+      ],
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Physics-Aware Assembly Graph",
+        "Generative Design Engine",
+        "Autonomous Experimentation"
+      ]
+    },
+    {
+      "name": "Autonomous Experimentation",
+      "previous_changes": "Reviewed main v0.3.0-alpha and previous objective-integrity handoff",
+      "current_changes": "Added reproducible multi-resolution benchmark contract",
+      "dependencies": [
+        "graph-engine.js",
+        "components/parametric.js",
+        "experiments/planar-interference.js"
+      ],
+      "tests": [
+        "node experiments/test-phase-clearance-convergence.js (CI pending)",
+        "node test.js (CI pending)",
+        "node scripts/test-handoff.js (CI pending)"
+      ],
+      "regressions": "No confirmed regression; pending CI",
+      "files_changed": [
+        "experiments/phase-clearance-convergence.js",
+        "experiments/test-phase-clearance-convergence.js",
+        ".github/workflows/engine-zero-ci.yml",
+        "docs/research/2026-11-23-phase-clearance.md",
+        "state/PROJECT_STATE.json",
+        "CHANGELOG.md",
+        "handoffs/2026-11-23.json"
+      ],
+      "blockers": [
+        "Continuous/3D clearance not certified"
+      ],
+      "next_tasks": [
+        "Pre-register >=10 seeds and count misses by sampling budget"
+      ],
+      "briefed_other_workstreams": [
+        "Parametric CAD Component Library",
+        "Physics-Aware Assembly Graph",
+        "Generative Design Engine",
+        "Simulation & Verification"
+      ]
+    }
+  ]
+}
