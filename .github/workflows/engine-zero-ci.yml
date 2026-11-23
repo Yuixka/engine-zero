@@ -27,6 +27,8 @@ jobs:
         run: node experiments/test-planar-interference.js
       - name: Benchmark objective independence regression
         run: node experiments/test-objective-integrity.js
+      - name: Phase-resolution clearance convergence regression
+        run: node experiments/test-phase-clearance-convergence.js
       - name: Generate and verify cross-briefing
         run: |
           node scripts/handoff.js

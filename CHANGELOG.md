@@ -39,3 +39,8 @@
 - Added geometry-based independent-objective classification to held-out benchmark output; identical higher-resolution training target is now explicitly a resampling control, not independent evidence.
 - Added deterministic regression and CI hook; no changes to design optimization or benchmark scoring.
 - Synthetic 2D geometry only; target distinctness is not statistical independence or invention evidence.
+
+## 2026-11-23 — research: phase-resolution clearance convergence
+- Added deterministic sampled 2D projected clearance diagnostic at increasing phase resolutions; flags coarse/fine disagreement without asserting collision-free certification.
+- Added regression, CI hook, five-way cross-briefing and explicit prior-art/falsification note.
+- No physical validation, 3D collision proof or novelty claim.
