@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-23",
+  "project": "Engine Zero",
+  "milestone": "real parametric 3D CAD solid exporter",
+  "commit_merge": "e3f127144e2bf2f40da4604c148e0a231cf28a71",
+  "pr": 27,
+  "tests": "CadQuery job success on PR: https://github.com/Yuixka/engine-zero/actions/runs/45268433522",
+  "actual_user_deliverables": [
+    "input.step",
+    "coupler.step",
+    "rocker.step",
+    "input.stl",
+    "coupler.stl",
+    "rocker.stl"
+  ],
+  "five_workstreams": {
+    "cad-library": "Real parametric STEP BREP from existing graph anchors shipped; next expand component library beyond capsule links",
+    "assembly-graph": "Moving-body IDs and revolute anchors are now source of truth for CAD part holes; next 3D mate frames and pin/ground interfaces",
+    "generative-design": "Use existing selected generated graph as CAD input; next let candidate outputs request CAD with explicit failure reporting",
+    "simulation-verification": "Nominal shape validation, bore location and STEP roundtrip tests passed; next actual 3D collision oracle",
+    "autonomous-experimentation": "Do not create theory-only PRs; measure practical feature completion with valid downloadable artifacts"
+  },
+  "limitations": [
+    "Not an assembled mechanism",
+    "No material/strength/actual fit or tolerance evidence",
+    "No physical testing or originality claims"
+  ],
+  "next": "Export one assembled 3D mechanism with explicit pin stack and ground, then demonstrate motion frames"
+}

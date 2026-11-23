@@ -44,3 +44,10 @@
 - Added deterministic sampled 2D projected clearance diagnostic at increasing phase resolutions; flags coarse/fine disagreement without asserting collision-free certification.
 - Added regression, CI hook, five-way cross-briefing and explicit prior-art/falsification note.
 - No physical validation, 3D collision proof or novelty claim.
+
+## 2026-11-23 — v0.4.0-alpha tangible CAD deliverable
+- Merged PR #27: graph-derived input, coupler and rocker now export to real editable STEP BREP solids plus STL meshes.
+- CadQuery/OpenCascade pipeline, validation and bore/volume/STEP round-trip tests added, with CI artifact publishing.
+- Confirmed independent GitHub Actions CAD job success; demo package includes all three STEP/STL parts.
+- Refocused the three scheduled engineers from paper experiments to working CAD/assembly features.
+- Next: actual posed mechanism assembly, explicit joint pins and mounts, and engineering clearance verification; real-world functionality not yet proven.

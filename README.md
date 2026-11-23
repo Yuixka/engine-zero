@@ -1,3 +1,17 @@
+# Engine Zero: real 3D CAD milestone (November 23, 2026)
+
+**Working software, not just experiments:** the graph's parametric input, coupler, and rocker profiles are converted to true OpenCascade STEP solids and STL preview files. [Source and how-to](cad/README.md). [Successful CAD build](https://github.com/Yuixka/engine-zero/actions/runs/45268433522).
+
+```sh
+node cad/export_sample.js cad/sample_parts.json
+python -m pip install cadquery==2.8.0
+python cad/build_3d.py cad/sample_parts.json --output cad/generated
+```
+
+This is an **initial component CAD exporter**, not a fully assembled, fabricated or physics-verified machine. Next delivery milestone: posed 3D assembly and explicit joint pins/ground fixtures.
+
+---
+
 # ENGINE ZERO v0.2 — Graph-based mechanism architecture discovery
 
 **Research build · 15 November 2026 · Offline · No external dependencies**

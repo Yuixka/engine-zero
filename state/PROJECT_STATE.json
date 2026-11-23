@@ -1,6 +1,6 @@
 {
   "project": "Engine Zero",
-  "baseline_version": "0.3.0-alpha",
+  "baseline_version": "0.4.0-alpha",
   "architecture": "five-workstream-coordinated-monorepo",
   "source_of_truth": "github:Yuixka/engine-zero",
   "status": "experimental planar graph-based kinematics only",
@@ -18,18 +18,19 @@
     "experimental nominal revolute pin/bore compatibility audit with explicit ground interfaces",
     "sampled nominal 2D projected interference risk diagnostic for nonadjacent moving components",
     "benchmark target-shape independence audit separating resampling controls from distinct objectives",
-    "experimental multi-resolution 2D projected clearance convergence diagnostic (research PR, not yet merged)"
+    "experimental multi-resolution 2D projected clearance convergence diagnostic (research PR, not yet merged)",
+    "real OpenCascade parametric 3D STEP and STL solid exports for graph-derived R-joint links/hubs (input, coupler, rocker)"
   ],
   "not_yet_supported": [
-    "parametric 3D CAD assets",
     "true component connector compatibility",
     "force or stress simulation",
     "robust collision clearance",
     "physical prototype testing",
     "patent novelty verification",
-    "independent five-agent execution"
+    "independent five-agent execution",
+    "assembled/mated 3D mechanism with real pin bodies, ground support and verified 3D collision clearances"
   ],
-  "next_integrated_milestone": "Independent continuous/3D clearance oracle and preregistered matched-budget comparison",
-  "last_test_outcome": "2026-11-23 phase-clearance-convergence PR CI pending; baseline main last confirmed PR #20 CI pass",
-  "notes": "Objective distinction is based on phase-aligned 2D synthetic geometry; does not prove statistical independence, 3D feasibility, or novelty."
+  "next_integrated_milestone": "deliver posed assembled 3D STEP solids with explicit pin/ground geometry, axial separation, and constrained joint mapping",
+  "last_test_outcome": "2026-11-23 PR #27 CadQuery real CAD build and roundtrip CI PASS (run 45268433522); merged into main in e3f127144e2bf2f40da4604c148e0a231cf28a71",
+  "notes": "Real STEP solids do not establish physically manufacturable assemblies; no force, stress, tolerance, 3D contact, ground/pin hardware, certification or invention novelty."
 }
