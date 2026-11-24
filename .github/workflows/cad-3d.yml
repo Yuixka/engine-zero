@@ -24,7 +24,9 @@ jobs:
         run: python cad/build_3d.py cad/sample_parts.json --output cad/generated
       - name: Validate CAD geometries and STEP round-trip
         run: python -m unittest discover -s cad -p 'test_*.py' -v
-      - name: Publish three sample solids
+      - name: Generate and round-trip layered STEP preview
+        run: python cad/build_preview_sample.py cad/sample_parts.json cad/generated/layered_preview.step
+      - name: Publish sample solids and layered preview
         uses: actions/upload-artifact@v4
         with:
           name: engine-zero-3d-cad-sample
