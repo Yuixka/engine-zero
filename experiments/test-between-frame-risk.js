@@ -1,0 +1,18 @@
+'use strict';
+const assert=require('node:assert/strict');
+const {sampleBetweenFrames}=require('./between-frame-risk.js');
+const fixed={a:[0,-2],b:[0,2],r:0.1};
+const left={a:[-2,0],b:[-2,0],r:0.1};
+const right={a:[2,0],b:[2,0],r:0.1};
+const result=sampleBetweenFrames(left,right,fixed,fixed,{subdivisions:16});
+assert.equal(result.endpointsClear,true);
+assert.equal(result.missedByEndpointSampling,true);
+assert(result.minimumSampledGapMm<0);
+assert.equal(result.firstIntermediateRisk.t,0.5);
+const safe=sampleBetweenFrames(left,left,fixed,fixed,{subdivisions:16});
+assert.equal(safe.missedByEndpointSampling,false);
+assert.equal(safe.firstIntermediateRisk,null);
+assert.deepEqual(result,sampleBetweenFrames(left,right,fixed,fixed,{subdivisions:16}));
+assert.throws(()=>sampleBetweenFrames(left,right,fixed,fixed,{subdivisions:1}),RangeError);
+assert.throws(()=>sampleBetweenFrames({...left,r:NaN},right,fixed,fixed),TypeError);
+console.log('between-frame interpolation risk regression PASS');
