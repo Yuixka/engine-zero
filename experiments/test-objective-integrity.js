@@ -17,4 +17,8 @@ const report=benchmark({seed:716,budget:0,depth:0});
 assert.equal(report.objective_integrity.independent_objectives,3);
 assert.equal(report.held_out[0].objective_role,'training-resample-control');
 assert.equal(report.held_out.filter(x=>x.objective_role==='independent-objective').length,3);
+for(const n of [0,1,-1,2.5,NaN,Infinity,100001]){
+  assert.throws(()=>objectiveShapeDistance(TRAIN,TRAIN,n),RangeError,`invalid comparison samples: ${n}`);
+}
+assert.equal(objectiveShapeDistance(TRAIN,TRAIN,2),0);
 console.log('benchmark independence audit PASS: 1 resampling control, 3 geometrically distinct objectives');
